@@ -1207,7 +1207,6 @@ class Ui_lcd_display(object):
             self.df = self.DF
         self.tablefiller()
 
-
     def retranslateUi(self, lcd_display):
         _translate = QtCore.QCoreApplication.translate
         lcd_display.setWindowTitle(_translate("lcd_display", "MainWindow"))
