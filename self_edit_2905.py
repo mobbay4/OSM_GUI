@@ -6,9 +6,6 @@ from PyQt5.QtWidgets import QMessageBox, QTableWidget,QTableWidgetItem, QProgres
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-
-
-
         self.bt_Mapping.clicked.connect(self.mapping_bt)
         self.bt_fileread.clicked.connect(self.readfile_bt)
         self.bt_cleardata.clicked.connect(self.cleardata_bt)
@@ -179,7 +176,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
     def mapping_bt(self):
 
-        #try:
+        try:
             #Mappingsetup
             tile  = self.comboBox_Maptype.currentText()
             map = folium.Map( tiles= tile,zoom_start = 20,control_scale=True)
@@ -231,18 +228,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 msg.setText("WARNING: No data selected")
                 msg.setWindowTitle("WARNING")
                 msg.exec_()
-        #except (IOError,NameError,TypeError,ValueError) as e:
-        #    msg = QMessageBox()
-        #    msg.setIcon(QMessageBox.Warning)
-        #    msg.setText(str(e))
-        ##    msg.setWindowTitle("WARNING")
-        #    msg.exec_()
-        #except:
-        #    msg = QMessageBox()
-        #    msg.setIcon(QMessageBox.Warning)
-        #    msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
-        #    msg.setWindowTitle("WARNING")
-        #    msg.exec_()
+        except (IOError,NameError,TypeError,ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
 
     def filteroptions(self,activ):
         #Filter the data as said by the Filteroptions
@@ -254,25 +251,25 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             self.df = self.DF
 
             def filtering(operator, DataFr, argument,i_par):
-                #translate Filteroptions into boolians
-                if operator=='<':
-                    x=DataFr.loc[DataFr[i_par]<argument]
-                    return x
-                elif operator == '>':
-                    x=DataFr.loc[DataFr[i_par]>argument]
-                    return x
-                elif operator == '<=':
-                    x=DataFr.loc[DataFr[i_par]<=argument]
-                    return x
-                elif operator == '>=':
-                    x=DataFr.loc[DataFr[i_par]>=argument]
-                    return x
-                elif operator == '==':
-                    x=DataFr.loc[DataFr[i_par]==argument]
-                    return x
-                elif operator == '!=':
-                    x=DataFr.loc[DataFr[i_par]!=argument]
-                    return x
+                    #translate Filteroptions into boolians
+                    if operator=='<':
+                        x=DataFr.loc[DataFr[i_par]<argument]
+                        return x
+                    elif operator == '>':
+                        x=DataFr.loc[DataFr[i_par]>argument]
+                        return x
+                    elif operator == '<=':
+                        x=DataFr.loc[DataFr[i_par]<=argument]
+                        return x
+                    elif operator == '>=':
+                        x=DataFr.loc[DataFr[i_par]>=argument]
+                        return x
+                    elif operator == '==':
+                        x=DataFr.loc[DataFr[i_par]==argument]
+                        return x
+                    elif operator == '!=':
+                        x=DataFr.loc[DataFr[i_par]!=argument]
+                        return x
             try:
                 #Auslesen der Datenfelder
                 i_par1 = self.comboBox_filter_par1.currentText() #Spaltenauswahl
@@ -346,50 +343,53 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     self.df=x
                     del(x)
                 if self.checkBox_filter_firstrow.isChecked() | self.checkBox_filter_cutoff.isChecked():
-                    if ~self.checkBox_filter_firstrow.isChecked():
+                    if (self.checkBox_filter_firstrow.isChecked()):
+                        firstrow = int(first)
+                    else:
                         firstrow = 1
-                    elif self.checkBox_filter_firstrow.isChecked():
-                        firstrow = first
-                    if ~self.checkBox_filter_cutoff.isChecked():
+                    if (self.checkBox_filter_cutoff.isChecked()):
+                        lastrow = int(last)
+                    else:
                         lastrow = len(self.df.index)
-                    elif self.checkBox_filter_cutoff.isChecked():
-                        lastrow = last
 
-                    if firstrow>lastrow:
-                        if lastrow<=self.df.index:
+                    if (firstrow)<(lastrow):
+                        if lastrow<=len(self.df.index):
                             x = self.df
                             del(self.df)
                             self.df = x.iloc[firstrow:lastrow,:]
                             del(x)
                         else:
                             msg = QMessageBox()
-                            msg.setIcon(QMessageBox.Error)
+                            msg.setIcon(QMessageBox.Warning)
                             msg.setText("ERROR: lastrow > data length")
                             msg.setWindowTitle("ERROR")
                             msg.exec_()
                     else:
                         msg = QMessageBox()
-                        msg.setIcon(QMessageBox.Error)
-                        msg.setText("ERROR: firstrow <= lastrow")
+                        msg.setIcon(QMessageBox.Warning)
+                        msg.setText("ERROR: firstrow >= lastrow")
                         msg.setWindowTitle("ERROR")
                         msg.exec_()
                 if self.checkBox_filter_jump.isChecked():
+                    self.df.reset_index(drop=True, inplace=True)
                     jumpstring = self.comboBox_markerjump.currentText()
                     jumprate = int(jumpstring[0])
                     goodindex = range(0, len(self.df.index), jumprate)
                     x = self.df
                     del(self.df)
-                    self.df = x.iloc[goodindex]
+                    self.df = x.iloc[goodindex,:]
                     del(x)
                 if self.checkBox_filter_repeat.isChecked():
+                    self.df.reset_index(drop=True, inplace=True)
                     x = self.df
                     del(self.df)
-                    ilat = QComboBox_Latetude_val.currentText()
-                    ilon = QComboBox_Longetude_val.currentText()
+                    ilat = self.QComboBox_Latetude_val.currentText()
+                    ilon = self.QComboBox_Longetude_val.currentText()
                     un= x.loc[:,[ilon,ilat]].drop_duplicates()
                     self.df=x.iloc[un.index,:]
                     del(x)
                 self.df.reset_index(drop=True, inplace=True)
+
                 if len(self.df.index) == 0:
                     self.markerexistance = False
                     msg = QMessageBox()
