@@ -5,13 +5,15 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.
 
 ## TODO:
 
+marker jump zu mapoptions und mit textfeld
+
 [ERLEDIGT]virtualenv verwenden
 
-Code auf Github hochladen damit Martin kommentieren kann
-
-window icon
+[ERLEDIGT]Code auf Github hochladen damit Martin kommentieren kann
 
 Exe erstellen
+
+.md files erstellen
 
 [ERLEDIGT]Filter wo man die letzten so und so vielen zeilen abschneiden kann bzw nur die ersten so und so vielen behalten kann
 
@@ -20,6 +22,12 @@ Dateipack für Martin fertig machen
 - Readme
 - Modulübersicht
 - Batch datei
+
+Code aufräumen:
+--------------
+-Datentypen: Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
+-Warning Messages überprüfen
+-nochmal alles einmal durchdenken
 
 Markerdarstellung
 - für viele Datenpunkte mit überblick was welcher ist
@@ -31,26 +39,24 @@ Markerdarstellung
 
 Automatische auswahl der lat lon daten ausdenken
 
+tabs im GUI design
+
 GPS sort vielleicht als filteroption einbauen, der schaut wie weit aufeinander folgende punkte voneinander weg sind und ob des vom durchschnitt abweicht?
 
-Process Bar:
-Oder Besser einen Colorbutton der sich färbt wenn prozess in arbeit
-- für Filter
-- für Kartenerstellung
-- für Speichern
+window icon
 
-Karte in PyQt5
-- Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
-
-Datentypen
--Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
-
-Optionale Funktionen
+Optionale Funktionen:
+--------------------
 - Datengruppen per folium für die verschiedenen filter
 - Karte in dem Fenster öffnen
 - Dateiexplorer
 - Kann man die Tabelle auch ohne For Schleife befüllen?-> Schneller=> alle Daten drin
-
+- Karte in PyQt5: Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
+Process Bar:
+- Oder Besser einen Colorbutton der sich färbt wenn prozess in arbeit
+- für Filter
+- für Kartenerstellung
+- für Speichern
 
 [ERLEDIGT]Aktuelle Daten Länge anzeigen
 Benutzerhinweise
