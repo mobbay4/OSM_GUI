@@ -1,0 +1,3 @@
+Folium
+PyQt5
+Pandas

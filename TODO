@@ -1,0 +1,78 @@
+Links von Martin:
+https://code.tutsplus.com/tutorials/error-handling-logging-in-python--cms-27932
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html
+
+
+## TODO:
+
+[ERLEDIGT]virtualenv verwenden
+
+Code auf Github hochladen damit Martin kommentieren kann
+
+window icon
+
+Exe erstellen
+
+[ERLEDIGT]Filter wo man die letzten so und so vielen zeilen abschneiden kann bzw nur die ersten so und so vielen behalten kann
+
+Dateipack für Martin fertig machen
+- Installtionsdatei
+- Readme
+- Modulübersicht
+- Batch datei
+
+Markerdarstellung
+- für viele Datenpunkte mit überblick was welcher ist
+- Datentracks mit feature groups
+- zentral maximale Markeranzahl für mehr stabilität
+->feature groups mit jeweils 2000 Markern
+[ERLEDIGT]->Marker Clusters
+[ERLEDIGT]->jeden zweiten/dritten/vierten marker nur plotten
+
+Automatische auswahl der lat lon daten ausdenken
+
+GPS sort vielleicht als filteroption einbauen, der schaut wie weit aufeinander folgende punkte voneinander weg sind und ob des vom durchschnitt abweicht?
+
+Process Bar:
+Oder Besser einen Colorbutton der sich färbt wenn prozess in arbeit
+- für Filter
+- für Kartenerstellung
+- für Speichern
+
+Karte in PyQt5
+- Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
+
+Datentypen
+-Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
+
+Optionale Funktionen
+- Datengruppen per folium für die verschiedenen filter
+- Karte in dem Fenster öffnen
+- Dateiexplorer
+- Kann man die Tabelle auch ohne For Schleife befüllen?-> Schneller=> alle Daten drin
+
+
+[ERLEDIGT]Aktuelle Daten Länge anzeigen
+Benutzerhinweise
+[ERLEDIGT]- Dateinamen: Dateiendung nicht vergessen
+[ERLEDIGT]- Timefilter: Timestampformat aus Tabelle muss verwendet werden
+[ERLEDIGT]- Marker Checkbox: Hinweis nicht für viele kooridinaten geeignet
+Combox Sortieren
+[ERLEDIGT]-Timestamp darf nicht letzter sein
+tooltip
+[ERLEDIGT]- timestamp & ID
+Warn Message
+[ERLEDIGT]- bei zuvielen Markern Warnmeldung machen
+Daten nach filtern speichern:
+[ERLEDIGT]- Nachdem man gefiltert will man ja auch speichern
+Designsachen:
+[ERLEDIGT]- comboBox bei Lat Lon größer machen
+Zoom Problem
+[ERLEDIGT]- irgendeine Möglichkeit zum Beheben des Zoomproblems finden, vielleicht zoom_min zoom_max
+Filter
+[ERLEDIGT]-So umbauen, dass mithilfe von Pandas gefiltert wird
+[ERLEDIGT]-Nach Datum filtern einbauen
+Sortieren
+[ERLEDIGT]-Die Daten sollen am Anfang nach Datum/timestamp sotiert werden
+readfile_bt
+[ERLEDIGT]-so überarbeiten dass auch die vectron datei gelsen werden kann
