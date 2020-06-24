@@ -1,6 +1,6 @@
 # install environment for OSM_GUI
 you need:
-* a python installation
+* a python installation (prefered 3.8.0 -- at least a windows launcher must be included)
 * a virtual environment with all packages of [requirements](../requirements.txt) 
 
 To get both, simply follow the next chapters.
@@ -13,4 +13,4 @@ If you do not have a python version now:
  * open cmd prompt or PowerShell and type py --> if no error occurs, python is installed correctly
 
  ## create virtual environment
- run setup.sh
+ Run setup.sh skrip. -->  double click (or run it with cmd prompt)
