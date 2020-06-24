@@ -2,6 +2,24 @@ Links von Martin:
 https://code.tutsplus.com/tutorials/error-handling-logging-in-python--cms-27932
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.html
 
+## ToDO input von Martin:
+
+Gui stürtzt ab wenn CSV-File nicht exisitiert und noch kein CSV-File geladen ist.
+Fehlermeldung siehe Ordner Errors
+
+
+Behandeln von Sprüngen in den Datensätzen
+ - Liste mit GPS-Sprüngen erzeugen (Toleranzvorschlag > 60km - Gotthard Basistunnel) 
+ - Sprünge in Datensatz mit Marker highliten (Beginn, Ende), Linie des Sprungs ausblenden
+ - (nicht priorisiert) Sprünge in den Regionen um lange Alpentunnel nicht ausblenden, Toleranz auf 10 km reduzieren
+
+Hinweis in GUI, dass ein Pfad angeben werden kann, um html files in separaten Ordner zu exportieren (Ordner muss existieren)
+
+Datei(z.B. txt) mit Filtereinstellungen zum html File ablegen --> damit nachvollzogen werden kann, was dargestellt wird
+
+Kann der GPS-Track auch als reine Punktelinie dargestellt werden? 
+
+md-Files der Documentation in Html oder andere stets aufrufbare//optisch schöne Dateien umwandeln
 
 ## TODO:
 
