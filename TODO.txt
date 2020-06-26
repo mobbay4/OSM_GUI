@@ -1,57 +1,34 @@
-## ToDO input von Martin:
 
-Gui stürtzt ab wenn CSV-File nicht exisitiert und noch kein CSV-File geladen ist.
-Fehlermeldung siehe Ordner Errors
+## ToDO input von Martin:
 
 
 Behandeln von Sprüngen in den Datensätzen
- - Liste mit GPS-Sprüngen erzeugen (Toleranzvorschlag > 60km - Gotthard Basistunnel) 
+ - Liste mit GPS-Sprüngen erzeugen (Toleranzvorschlag > 60km - Gotthard Basistunnel)
  - Sprünge in Datensatz mit Marker highliten (Beginn, Ende), Linie des Sprungs ausblenden
  - (nicht priorisiert) Sprünge in den Regionen um lange Alpentunnel nicht ausblenden, Toleranz auf 10 km reduzieren
 
-Hinweis in GUI, dass ein Pfad angeben werden kann, um html files in separaten Ordner zu exportieren (Ordner muss existieren)
 
 Datei(z.B. txt) mit Filtereinstellungen zum html File ablegen --> damit nachvollzogen werden kann, was dargestellt wird
-
-<<<<<<< HEAD
-Kann der GPS-Track auch als reine Punktelinie dargestellt werden? 
-=======
-Kann der GPS-Track auch als reine Punktelinie dargestellt werden? -> Meinst du so als gestrichelte Linie statt einer durchgezogenen
-
-[ERLEDIGT]md-Files der Documentation in Html oder andere stets aufrufbare//optisch schöne Dateien umwandeln
+Filtersettings in Karte reinschreiben
 
 
->>>>>>> Filtersave
-
-[ERLEDIGT]md-Files der Documentation in Html oder andere stets aufrufbare//optisch schöne Dateien umwandeln
 
 ## TODO:
 
-marker jump zu mapoptions und mit textfeld
 
-[ERLEDIGT]Exe erstellen
-
-[ERLEDIGT].md files erstellen
-
-Dateipack für Martin fertig machen
-[ERLEDIGT]- Installtionsdatei
-[ERLEDIGT]- Readme
-[ERLEDIGT]- Modulübersicht
-[ERLEDIGT]- Batch datei
 
 Code aufräumen:
---------------
--Datentypen: Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
--Warning Messages überprüfen
--nochmal alles einmal durchdenken
+ - Datentypen: Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
+ - Warning Messages überprüfen
+ - nochmal alles einmal durchdenken
 
 Markerdarstellung
-- für viele Datenpunkte mit überblick was welcher ist
-- Datentracks mit feature groups
-- zentral maximale Markeranzahl für mehr stabilität
-->feature groups mit jeweils 2000 Markern
-[ERLEDIGT]->Marker Clusters
-[ERLEDIGT]->jeden zweiten/dritten/vierten marker nur plotten
+ - für viele Datenpunkte mit überblick was welcher ist
+ - Datentracks mit feature groups
+ - zentral maximale Markeranzahl für mehr stabilität
+ - >feature groups mit jeweils 2000 Markern
+ - [ERLEDIGT]->Marker Clusters
+ - [ERLEDIGT]->jeden zweiten/dritten/vierten marker nur plotten
 
 Automatische auswahl der lat lon daten ausdenken
 
@@ -62,18 +39,30 @@ GPS sort vielleicht als filteroption einbauen, der schaut wie weit aufeinander f
 window icon
 
 Optionale Funktionen:
---------------------
-- Datengruppen per folium für die verschiedenen filter
-- Karte in dem Fenster öffnen
-- Dateiexplorer
-- Kann man die Tabelle auch ohne For Schleife befüllen?-> Schneller=> alle Daten drin
-- Karte in PyQt5: Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
+ - Datengruppen per folium für die verschiedenen filter
+ - Karte in dem Fenster öffnen
+ - Dateiexplorer
+ - Kann man die Tabelle auch ohne For Schleife befüllen?-> Schneller=> alle Daten drin
+ - Karte in PyQt5: Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
 Process Bar:
-- Oder Besser einen Colorbutton der sich färbt wenn prozess in arbeit
-- für Filter
-- für Kartenerstellung
-- für Speichern
+ - Oder Besser einen Colorbutton der sich färbt wenn prozess in arbeit
+ - für Filter
+ - für Kartenerstellung
+ - für Speichern
 
+[ERLEDIGT]marker jump zu mapoptions und mit textfeld
+[ERLEDIGT]Exe erstellen
+[ERLEDIGT].md files erstellen
+[ERLEDIGT]Dateipack für Martin fertig machen
+[ERLEDIGT]- Installtionsdatei
+[ERLEDIGT]- Readme
+[ERLEDIGT]- Modulübersicht
+[ERLEDIGT]- Batch datei
+[Geht nicht]Kann der GPS-Track auch als reine Punktelinie dargestellt werden?
+[ERLEDIGT]Gui stürtzt ab wenn CSV-File nicht exisitiert und noch kein CSV-File geladen ist.
+          Fehlrmeldung siehe Ordner Errors
+[ERLEDIGT]Hinweis in GUI, dass ein Pfad angeben werden kann, um html files in separaten Ordner zu exportieren (Ordner muss existieren)
+[ERLEDIGT]md-Files der Documentation in Html oder andere stets aufrufbare//optisch schöne Dateien umwandeln
 [ERLEDIGT]Filter wo man die letzten so und so vielen zeilen abschneiden kann bzw nur die ersten so und so vielen behalten kann
 [ERLEDIGT]virtualenv verwenden
 [ERLEDIGT]Code auf Github hochladen damit Martin kommentieren kann
