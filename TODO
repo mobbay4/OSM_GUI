@@ -7,15 +7,9 @@ https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.loc.
 
 marker jump zu mapoptions und mit textfeld
 
-[ERLEDIGT]virtualenv verwenden
-
-[ERLEDIGT]Code auf Github hochladen damit Martin kommentieren kann
-
 Exe erstellen
 
 .md files erstellen
-
-[ERLEDIGT]Filter wo man die letzten so und so vielen zeilen abschneiden kann bzw nur die ersten so und so vielen behalten kann
 
 Dateipack für Martin fertig machen
 - Installtionsdatei
@@ -58,6 +52,9 @@ Process Bar:
 - für Kartenerstellung
 - für Speichern
 
+[ERLEDIGT]Filter wo man die letzten so und so vielen zeilen abschneiden kann bzw nur die ersten so und so vielen behalten kann
+[ERLEDIGT]virtualenv verwenden
+[ERLEDIGT]Code auf Github hochladen damit Martin kommentieren kann
 [ERLEDIGT]Aktuelle Daten Länge anzeigen
 Benutzerhinweise
 [ERLEDIGT]- Dateinamen: Dateiendung nicht vergessen
