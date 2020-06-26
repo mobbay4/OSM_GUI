@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>2672</width>
-    <height>1822</height>
+    <height>1864</height>
    </rect>
   </property>
   <property name="font">
@@ -457,24 +457,99 @@ p, li { white-space: pre-wrap; }
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="2" column="3" colspan="2">
-           <widget class="QLineEdit" name="text_filter_par1">
+          <item row="1" column="6">
+           <widget class="QLabel" name="label_27">
+            <property name="text">
+             <string>Filter on/off</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QComboBox" name="comboBox_filter_par4">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
-             <string/>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QComboBox" name="comboBox_filter_op_t2">
+            <item>
+             <property name="text">
+              <string>&lt;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&gt;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&lt;=</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&gt;=</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>==</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>!=</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_filter_par2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
            </widget>
           </item>
-          <item row="2" column="6">
-           <widget class="QCheckBox" name="checkbox_filter_1">
-            <property name="text">
-             <string>Filter 1 on/off</string>
-            </property>
+          <item row="4" column="2">
+           <widget class="QComboBox" name="comboBox_filter_op3">
+            <item>
+             <property name="text">
+              <string>&lt;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&gt;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&lt;=</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&gt;=</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>==</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>!=</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item row="1" column="1">
@@ -484,8 +559,42 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="10" column="2">
-           <widget class="QComboBox" name="comboBox_filter_op_t2">
+          <item row="9" column="2">
+           <widget class="QComboBox" name="comboBox_filter_op_t1">
+            <item>
+             <property name="text">
+              <string>&lt;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&gt;</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&lt;=</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>&gt;=</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>==</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>!=</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QComboBox" name="comboBox_filter_op5">
             <item>
              <property name="text">
               <string>&lt;</string>
@@ -525,74 +634,6 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="4" column="2">
-           <widget class="QComboBox" name="comboBox_filter_op3">
-            <item>
-             <property name="text">
-              <string>&lt;</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&gt;</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&lt;=</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&gt;=</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>==</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>!=</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="9" column="2">
-           <widget class="QComboBox" name="comboBox_filter_op_t1">
-            <item>
-             <property name="text">
-              <string>&lt;</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&gt;</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&lt;=</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&gt;=</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>==</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>!=</string>
-             </property>
-            </item>
-           </widget>
-          </item>
           <item row="7" column="0">
            <widget class="QLabel" name="label_21">
             <property name="text">
@@ -600,8 +641,15 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="6" column="2">
-           <widget class="QComboBox" name="comboBox_filter_op5">
+          <item row="9" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>Filter by Timestamp 1</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QComboBox" name="comboBox_filter_op2">
             <item>
              <property name="text">
               <string>&lt;</string>
@@ -641,20 +689,6 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="1" column="6">
-           <widget class="QLabel" name="label_27">
-            <property name="text">
-             <string>Filter on/off</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_19">
-            <property name="text">
-             <string>Parameter 5</string>
-            </property>
-           </widget>
-          </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
@@ -662,20 +696,33 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="label_22">
-            <property name="text">
-             <string>Filter by Timestamp 1</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QComboBox" name="comboBox_filter_par4">
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_filter_par1">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="6">
+           <widget class="QCheckBox" name="checkbox_filter_4">
+            <property name="text">
+             <string>Filter 4 on/off</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3" colspan="2">
+           <widget class="QLineEdit" name="text_filter_par2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -719,6 +766,13 @@ p, li { white-space: pre-wrap; }
             </item>
            </widget>
           </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>Parameter 5</string>
+            </property>
+           </widget>
+          </item>
           <item row="7" column="3" colspan="2">
            <widget class="QLineEdit" name="text_filter_par6">
             <property name="sizePolicy">
@@ -732,54 +786,23 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QComboBox" name="comboBox_filter_par2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QComboBox" name="comboBox_filter_op2">
-            <item>
-             <property name="text">
-              <string>&lt;</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&gt;</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&lt;=</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>&gt;=</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>==</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>!=</string>
-             </property>
-            </item>
-           </widget>
-          </item>
           <item row="10" column="0">
            <widget class="QLabel" name="label_23">
             <property name="text">
              <string>Filter by Timestamp 2</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" colspan="2">
+           <widget class="QLineEdit" name="text_filter_par1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -817,65 +840,15 @@ p, li { white-space: pre-wrap; }
             </item>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QComboBox" name="comboBox_filter_par1">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="6">
-           <widget class="QCheckBox" name="checkbox_filter_4">
+          <item row="2" column="6">
+           <widget class="QCheckBox" name="checkbox_filter_1">
             <property name="text">
-             <string>Filter 4 on/off</string>
+             <string>Filter 1 on/off</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="3" colspan="2">
-           <widget class="QLineEdit" name="text_filter_par2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="3" colspan="2">
-           <widget class="QLineEdit" name="text_filter_time1">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="6">
-           <widget class="QCheckBox" name="checkbox_filter_t1">
-            <property name="text">
-             <string>Time Filter 1 on/off</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="6">
-           <widget class="QCheckBox" name="checkbox_filter_5">
-            <property name="text">
-             <string>Filter 5 on/off</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <widget class="QComboBox" name="comboBox_filter_time1">
+          <item row="4" column="1">
+           <widget class="QComboBox" name="comboBox_filter_par3">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -894,73 +867,17 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="5" column="3" colspan="2">
-           <widget class="QLineEdit" name="text_filter_par4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="3" colspan="2">
-           <widget class="QLineEdit" name="text_filter_par3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="6">
-           <widget class="QCheckBox" name="checkbox_filter_6">
-            <property name="text">
-             <string>Filter 6 on/off</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QLabel" name="label_26">
-            <property name="text">
-             <string>Operator</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QComboBox" name="comboBox_filter_par3">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="3" colspan="2">
-           <widget class="QLineEdit" name="text_filter_par5">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="0">
            <widget class="QLabel" name="label_9">
             <property name="text">
              <string>Parameter 3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="6">
+           <widget class="QCheckBox" name="checkbox_filter_t1">
+            <property name="text">
+             <string>Time Filter 1 on/off</string>
             </property>
            </widget>
           </item>
@@ -971,13 +888,6 @@ p, li { white-space: pre-wrap; }
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>Parameter 4</string>
             </property>
            </widget>
           </item>
@@ -1015,43 +925,23 @@ p, li { white-space: pre-wrap; }
             </item>
            </widget>
           </item>
-          <item row="4" column="6">
-           <widget class="QCheckBox" name="checkbox_filter_3">
+          <item row="7" column="6">
+           <widget class="QCheckBox" name="checkbox_filter_6">
             <property name="text">
-             <string>Filter 3 on/off</string>
+             <string>Filter 6 on/off</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="3" colspan="2">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>If argument</string>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="5">
-           <widget class="QLabel" name="label_36">
-            <property name="text">
-             <string>(data timestap format )</string>
-            </property>
-           </widget>
-          </item>
-          <item row="18" column="6">
-           <widget class="QPushButton" name="bt_undofilter">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-              <weight>50</weight>
-              <italic>false</italic>
-              <bold>false</bold>
-              <underline>false</underline>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>PointingHandCursor</cursorShape>
+          <item row="4" column="3" colspan="2">
+           <widget class="QLineEdit" name="text_filter_par3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="text">
-             <string>Undo Filter</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -1068,13 +958,6 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="2" column="5">
-           <widget class="QLabel" name="label_35">
-            <property name="text">
-             <string>(float numbers)</string>
-            </property>
-           </widget>
-          </item>
           <item row="7" column="1">
            <widget class="QComboBox" name="comboBox_filter_par6">
             <property name="sizePolicy">
@@ -1085,6 +968,25 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
+          <item row="14" column="0">
+           <widget class="QLabel" name="label_39">
+            <property name="font">
+             <font>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
+            <property name="text">
+             <string>Cut of data at row</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3" colspan="2">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>If argument</string>
+            </property>
+           </widget>
+          </item>
           <item row="10" column="6">
            <widget class="QCheckBox" name="checkbox_filter_t2">
             <property name="text">
@@ -1092,7 +994,20 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="18" column="3">
+          <item row="5" column="3" colspan="2">
+           <widget class="QLineEdit" name="text_filter_par4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="19" column="3">
            <widget class="QPushButton" name="bt_applyfilter">
             <property name="font">
              <font>
@@ -1111,103 +1026,103 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="12" column="0">
-           <widget class="QLabel" name="label_41">
-            <property name="font">
-             <font>
-              <strikeout>false</strikeout>
-             </font>
+          <item row="9" column="3" colspan="2">
+           <widget class="QLineEdit" name="text_filter_time1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="text">
-             <string>First data row</string>
+             <string/>
             </property>
            </widget>
           </item>
-          <item row="13" column="0">
-           <widget class="QLabel" name="label_39">
-            <property name="font">
-             <font>
-              <strikeout>false</strikeout>
-             </font>
-            </property>
+          <item row="4" column="6">
+           <widget class="QCheckBox" name="checkbox_filter_3">
             <property name="text">
-             <string>Cut of data at row</string>
+             <string>Filter 3 on/off</string>
             </property>
            </widget>
           </item>
-          <item row="13" column="3">
+          <item row="10" column="5">
+           <widget class="QLabel" name="label_36">
+            <property name="text">
+             <string>(data timestap format )</string>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="3">
            <widget class="QLineEdit" name="text_filter_cutoff"/>
           </item>
-          <item row="14" column="2">
-           <widget class="QLabel" name="label_38">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_17">
             <property name="text">
-             <string>Marker</string>
+             <string>Parameter 4</string>
             </property>
            </widget>
           </item>
-          <item row="14" column="1">
-           <widget class="QComboBox" name="comboBox_markerjump">
-            <item>
-             <property name="text">
-              <string>2.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>3.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>4.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>5.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>6.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>7.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>8.</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>9.</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="12" column="3">
-           <widget class="QLineEdit" name="text_filter_firstrow"/>
-          </item>
-          <item row="14" column="0">
-           <widget class="QLabel" name="label_31">
+          <item row="19" column="6">
+           <widget class="QPushButton" name="bt_undofilter">
             <property name="font">
              <font>
-              <strikeout>false</strikeout>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+              <underline>false</underline>
              </font>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
-             <string>Keep every</string>
+             <string>Undo Filter</string>
             </property>
            </widget>
           </item>
-          <item row="13" column="5">
-           <widget class="QLabel" name="label_40">
+          <item row="6" column="3" colspan="2">
+           <widget class="QLineEdit" name="text_filter_par5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
-             <string>(last row integer)</string>
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="5">
+           <widget class="QLabel" name="label_35">
+            <property name="text">
+             <string>(float numbers)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="6">
+           <widget class="QCheckBox" name="checkbox_filter_5">
+            <property name="text">
+             <string>Filter 5 on/off</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_26">
+            <property name="text">
+             <string>Operator</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1">
+           <widget class="QComboBox" name="comboBox_filter_time1">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
            </widget>
           </item>
@@ -1224,21 +1139,39 @@ p, li { white-space: pre-wrap; }
             </property>
            </spacer>
           </item>
-          <item row="13" column="6">
+          <item row="17" column="3">
+           <spacer name="verticalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="14" column="6">
            <widget class="QCheckBox" name="checkBox_filter_cutoff">
             <property name="text">
              <string>Cut off on/off</string>
             </property>
            </widget>
           </item>
-          <item row="12" column="5">
-           <widget class="QLabel" name="label_42">
+          <item row="11" column="0" rowspan="3">
+           <widget class="QLabel" name="label_41">
+            <property name="font">
+             <font>
+              <strikeout>false</strikeout>
+             </font>
+            </property>
             <property name="text">
-             <string>(first row integer)</string>
+             <string>First data row</string>
             </property>
            </widget>
           </item>
-          <item row="12" column="6">
+          <item row="11" column="6" rowspan="3">
            <widget class="QCheckBox" name="checkBox_filter_firstrow">
             <property name="text">
              <string>start on/off</string>
@@ -1257,20 +1190,6 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="15" column="6">
-           <widget class="QCheckBox" name="checkBox_filter_repeat">
-            <property name="text">
-             <string>repeat Filter on /off</string>
-            </property>
-           </widget>
-          </item>
-          <item row="14" column="6">
-           <widget class="QCheckBox" name="checkBox_filter_jump">
-            <property name="text">
-             <string>Jump Filter on /off</string>
-            </property>
-           </widget>
-          </item>
           <item row="15" column="5">
            <widget class="QLabel" name="label_45">
             <property name="text">
@@ -1278,23 +1197,27 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="16" column="3">
-           <spacer name="verticalSpacer_8">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+          <item row="12" column="5">
+           <widget class="QLabel" name="label_42">
+            <property name="text">
+             <string>(first row integer)</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
+          </item>
+          <item row="12" column="3">
+           <widget class="QLineEdit" name="text_filter_firstrow"/>
           </item>
           <item row="14" column="5">
-           <widget class="QLabel" name="label_46">
+           <widget class="QLabel" name="label_40">
             <property name="text">
-             <string>(recomendet for large data)</string>
+             <string>(last row integer)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="6">
+           <widget class="QCheckBox" name="checkBox_filter_repeat">
+            <property name="text">
+             <string>repeat Filter on /off</string>
             </property>
            </widget>
           </item>
@@ -1317,28 +1240,14 @@ p, li { white-space: pre-wrap; }
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <layout class="QGridLayout" name="gridLayout_2">
-            <item row="1" column="2">
-             <widget class="QLabel" name="label_34">
-              <property name="text">
-               <string>(just up to 3000 points)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_33">
-              <property name="text">
-               <string>Cluster Markers</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1" colspan="2">
+            <item row="9" column="1" colspan="2">
              <widget class="QLineEdit" name="text_Mapname">
               <property name="text">
                <string>examplename</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
+            <item row="9" column="0">
              <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
@@ -1351,50 +1260,27 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="checkBox_Marker">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>On/Off</string>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
+               <string>Tooltips in Markers</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1" colspan="2">
-             <widget class="QComboBox" name="comboBox_Maptype">
-              <item>
-               <property name="text">
-                <string>OpenStreetMap</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Stamen Terrain</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Stamen Toner</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
+            <item row="10" column="0">
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
               </property>
-              <property name="text">
-               <string>Map Options</string>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
               </property>
-             </widget>
+             </spacer>
             </item>
-            <item row="7" column="0">
+            <item row="8" column="0">
              <widget class="QLabel" name="label_Maptype">
               <property name="font">
                <font>
@@ -1407,17 +1293,17 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="5" column="1" colspan="2">
-             <widget class="QComboBox" name="comboBox_tooltip_2"/>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_4">
+            <item row="7" column="1">
+             <widget class="QCheckBox" name="checkBox_Polyline">
               <property name="text">
-               <string>Tooltips in Markers</string>
+               <string>On/Off</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item row="10" column="0" colspan="3">
+            <item row="11" column="0" colspan="3">
              <widget class="QPushButton" name="bt_Mapping">
               <property name="font">
                <font>
@@ -1436,39 +1322,13 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
-             <spacer name="verticalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="6" column="1">
-             <widget class="QCheckBox" name="checkBox_Polyline">
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkBox_Marker">
               <property name="text">
                <string>On/Off</string>
               </property>
               <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_location_2">
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Polyline between Markers</string>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -1485,6 +1345,44 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
+            <item row="6" column="1" colspan="2">
+             <widget class="QComboBox" name="comboBox_tooltip_2"/>
+            </item>
+            <item row="5" column="1" colspan="2">
+             <widget class="QComboBox" name="comboBox_tooltip_1"/>
+            </item>
+            <item row="8" column="1" colspan="2">
+             <widget class="QComboBox" name="comboBox_Maptype">
+              <item>
+               <property name="text">
+                <string>OpenStreetMap</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Stamen Terrain</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Stamen Toner</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_location_2">
+              <property name="font">
+               <font>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Polyline between Markers</string>
+              </property>
+             </widget>
+            </item>
             <item row="2" column="1">
              <widget class="QCheckBox" name="checkBox_cluster">
               <property name="text">
@@ -1492,20 +1390,88 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="4" column="1" colspan="2">
-             <widget class="QComboBox" name="comboBox_tooltip_1"/>
+            <item row="7" column="2">
+             <widget class="QLabel" name="label_43">
+              <property name="text">
+               <string>(follows sort)</string>
+              </property>
+             </widget>
             </item>
-            <item row="2" column="2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Map Options</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_33">
+              <property name="text">
+               <string>Cluster Markers</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_31">
+              <property name="font">
+               <font>
+                <strikeout>false</strikeout>
+               </font>
+              </property>
+              <property name="text">
+               <string>Keep every ... Marker</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" colspan="3">
+             <widget class="QLabel" name="label_34">
+              <property name="text">
+               <string>(just up to 3000 points)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" colspan="3">
              <widget class="QLabel" name="label_37">
               <property name="text">
                <string>(recomendet for large data sets)</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="2">
-             <widget class="QLabel" name="label_43">
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="text_jumprate"/>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="label_47">
               <property name="text">
-               <string>(follows sort)</string>
+               <string>(Integer numbers)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2">
+             <widget class="QCheckBox" name="checkBox_jump">
+              <property name="text">
+               <string>Jump Filter on /off</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QLabel" name="label_46">
+              <property name="text">
+               <string>(recomendet for large data)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1" colspan="2">
+             <widget class="QLabel" name="label_38">
+              <property name="text">
+               <string>(also pathnames,  dictionarys have to exist)</string>
               </property>
              </widget>
             </item>
