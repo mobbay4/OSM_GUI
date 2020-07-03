@@ -31,3 +31,5 @@ lon=pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]]
 jumppoints = lat
 jumppoints.loc[:,"GPS_longitude"]=lon.loc[:,"GPS_longitude"]
 print(jumppoints)
+jumppoints=jumppoints.drop(700)
+print(jumppoints)

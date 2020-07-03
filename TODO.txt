@@ -8,6 +8,8 @@ Behandeln von Sprüngen in den Datensätzen
  - in excel file schreiben
  - Abstand angeben km -> Sprüngefilter
  - grad in km mit faktor umrechenen
+ ------
+ -Problem mit points lösen
 
 
 [ERLEDIGT]Datei(z.B. txt) mit Filtereinstellungen zum html File ablegen --> damit nachvollzogen werden kann, was dargestellt wird
@@ -15,6 +17,8 @@ Behandeln von Sprüngen in den Datensätzen
 [ERLEDIGT]tooltip ["filtersettings"]
 
 Circle Marker?
+
+-Autofiller für Dateinamen [id, firstdate, enddate]
 
 
 ## TODO:
