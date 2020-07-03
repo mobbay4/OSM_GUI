@@ -99,6 +99,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             path = self.text_filepath.text()
             raw_path = fr"{path}"
             self.DF = pd.read_csv(raw_path)
+            self.textfilter=[]
 
             self.QComboBox_Longetude_val.clear()       # delete all items from comboBox
             self.QComboBox_Latetude_val.clear()       # delete all items from comboBox
@@ -178,7 +179,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
     def mapping_bt(self):
 
-        try:
+        # try:
             #Mappingsetup
             tile  = self.comboBox_Maptype.currentText()
             map = folium.Map( tiles= tile,zoom_start = 20,control_scale=True)
@@ -188,12 +189,23 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 i_lat = self.QComboBox_Latetude_val.currentText()
                 i_lon = self.QComboBox_Longetude_val.currentText()
 
+                if self.checkBox_jump.isChecked():#für den Jumpfilter
+                    self.df.reset_index(drop=True, inplace=True)
+                    jumpstring = self.comboBox_markerjump.currentText()
+                    jumprate = int(jumpstring[0])
+                    goodindex = range(0, len(self.df.index), jumprate)
+                    x = self.df
+                    del(self.df)
+                    self.df = x.iloc[goodindex,:]
+                    del(x)
+
                 lat = self.df.loc[:][i_lat]
                 lon = self.df.loc[:][i_lon]
+
                 if self.checkBox_Marker.isChecked() and len(lat)>3000:
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Warning)
-                    msg.setText("WARNING: You have printed a lot of Markers maybe your map will be unstable")
+                    msg.setText("WARNING: You have printed over 3000 Markers maybe your map will be unstable try using MarkerClusters or the Jumpfilter")
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
                 #vorbereiten der Markercoordinaten
@@ -220,6 +232,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 ne = self.df.loc[:,[i_lat, i_lon]].max().values.tolist()
                 map.fit_bounds([sw, ne])
 
+                #Darstellen der filtersettings
+                s= self.textfilter
+                for i in range(0,len(s)):
+                   popfiltertext = ''.join([str(elem)+"<br>" for elem in s])
+                infopos     = [(sw[0]+ne[0])/2,(sw[1]+ne[1])/2]
+                infomarker  = folium.Marker(infopos,tooltip="filtersettings",icon=folium.Icon(color='red', icon='info-sign'))
+                pop         = folium.map.Popup(html=popfiltertext, max_width=200,min_width=200).add_to(infomarker)
+                infomarker.add_to(map)
             #Speichern der Karte
             mapname = self.text_Mapname.text()
             map.save(mapname+'.html')
@@ -230,18 +250,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 msg.setText("WARNING: No data selected")
                 msg.setWindowTitle("WARNING")
                 msg.exec_()
-        except (IOError,NameError,TypeError,ValueError) as e:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText(str(e))
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-        except:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
+        # except (IOError,NameError,TypeError,ValueError) as e:
+        #     msg = QMessageBox()
+        #     msg.setIcon(QMessageBox.Warning)
+        #     msg.setText(str(e))
+        #     msg.setWindowTitle("WARNING")
+        #     msg.exec_()
+        # except:
+        #     msg = QMessageBox()
+        #     msg.setIcon(QMessageBox.Warning)
+        #     msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+        #     msg.setWindowTitle("WARNING")
+        #     msg.exec_()
 
     def filteroptions(self,activ):
         #Filter the data as said by the Filteroptions
@@ -250,9 +270,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
         #                  if False ->filteroptions get undone
 
         if activ: #Apply filter button
-            self.df = self.DF
+                self.df = self.DF
 
-            def filtering(operator, DataFr, argument,i_par):
+                def filtering(operator, DataFr, argument,i_par):
                     #translate Filteroptions into boolians
                     if operator=='<':
                         x=DataFr.loc[DataFr[i_par]<argument]
@@ -272,7 +292,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     elif operator == '!=':
                         x=DataFr.loc[DataFr[i_par]!=argument]
                         return x
-            try:
+            # try:
                 #Auslesen der Datenfelder
                 i_par1 = self.comboBox_filter_par1.currentText() #Spaltenauswahl
                 i_par2 = self.comboBox_filter_par2.currentText()
@@ -303,49 +323,60 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 first = self.text_filter_firstrow.text()
                 last  = self.text_filter_cutoff.text()
 
+                #Filtersettings prealocate
+                self.textfilter=[]
+
                 #Filtern
                 if self.checkbox_filter_1.isChecked():
-                    x = filtering(op1,self.df,float(arg1),i_par1)
+                    x = filtering(op1,self.df,float(arg1),i_par1)#filter data
                     del(self.df)
                     self.df=x
                     del(x)
+                    self.textfilter.append(i_par1+" "+op1+" "+arg1)#save text for filtersettings.txt
                 if self.checkbox_filter_2.isChecked():
                     x = filtering(op2,self.df,float(arg2),i_par2)
                     del(self.df)
                     self.df=x
                     del(x)
+                    self.textfilter.append(i_par2+" "+op2+" "+arg2)
                 if self.checkbox_filter_3.isChecked():
                     x = filtering(op3,self.df,float(arg3),i_par3)
                     del(self.df)
                     self.df=x
                     del(x)
+                    self.textfilter.append(i_par3+" "+op3+" "+arg3)
                 if self.checkbox_filter_4.isChecked():
                     x = filtering(op4,self.df,float(arg4),i_par4)
                     del(self.df)
                     self.df=x
                     del(x)
+                    self.textfilter.append(i_par4+" "+op4+" "+arg4)
                 if self.checkbox_filter_5.isChecked():
                     x = filtering(op5,self.df,float(arg5),i_par5)
                     del(self.df)
                     self.df=x
                     del(x)
+                    self.textfilter.append(i_par5+" "+op5+" "+arg5)
                 if self.checkbox_filter_6.isChecked():
                     x = filtering(op6,self.df,float(arg6),i_par6)
                     del(self.df)
                     self.df=x
                     del(x)
-                if self.checkbox_filter_t1.isChecked():
+                    self.textfilter.append(i_par6+" "+op6+" "+arg6)
+                if self.checkbox_filter_t1.isChecked():#Timestamp Filter
                     x = filtering(op_t1,self.df,arg_t1,i_time1)
                     del(self.df)
                     self.df=x
                     del(x)
-                if self.checkbox_filter_t2.isChecked():
+                    self.textfilter.append(i_time1+" "+op_t1+" "+arg_t1)
+                if self.checkbox_filter_t2.isChecked():#Timestamp Filter
                     x = filtering(op_t2,self.df,arg_t2,i_time2)
                     del(self.df)
                     self.df=x
                     del(x)
-
-                if self.checkBox_filter_repeat.isChecked():
+                    self.textfilter.append(i_time2+" "+op_t2+" "+arg_t2)
+                self.df.reset_index(drop=True, inplace=True) #reset index for potential filtering
+                if self.checkBox_filter_repeat.isChecked():#Filter for repeating Datapoints
                     self.df.reset_index(drop=True, inplace=True)
                     x = self.df
                     del(self.df)
@@ -354,8 +385,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     un= x.loc[:,[ilon,ilat]].drop_duplicates()
                     self.df=x.iloc[un.index,:]
                     del(x)
-                self.df.reset_index(drop=True, inplace=True)
-
+                    self.textfilter.append("repeatfilter = True")
+                #Cutoff Filter Cuts at firstrow and at lastrow
                 if self.checkBox_filter_firstrow.isChecked() | self.checkBox_filter_cutoff.isChecked():
                     if (self.checkBox_filter_firstrow.isChecked()):
                         firstrow = int(first)
@@ -372,6 +403,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                             del(self.df)
                             self.df = x.iloc[firstrow:lastrow,:]
                             del(x)
+                            self.textfilter.append("firstrow = " +str(firstrow))
+                            self.textfilter.append("lastrow = "+str(lastrow))
                         else:
                             msg = QMessageBox()
                             msg.setIcon(QMessageBox.Warning)
@@ -385,28 +418,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                         msg.setWindowTitle("ERROR")
                         msg.exec_()
 
-                if self.checkBox_filter_repeat.isChecked():
-                    self.df.reset_index(drop=True, inplace=True)
-                    x = self.df
-                    del(self.df)
-                    ilat = self.QComboBox_Latetude_val.currentText()
-                    ilon = self.QComboBox_Longetude_val.currentText()
-                    un= x.loc[:,[ilon,ilat]].drop_duplicates()
-                    self.df=x.iloc[un.index,:]
-                    del(x)
-                    
-                if self.checkBox_filter_jump.isChecked():
-                    self.df.reset_index(drop=True, inplace=True)
-                    jumpstring = self.comboBox_markerjump.currentText()
-                    jumprate = int(jumpstring[0])
-                    goodindex = range(0, len(self.df.index), jumprate)
-                    x = self.df
-                    del(self.df)
-                    self.df = x.iloc[goodindex,:]
-                    del(x)
+                self.df.reset_index(drop=True, inplace=True)#resets indexes of the Dataframe to 1,2,3,4,...
 
-                self.df.reset_index(drop=True, inplace=True)
-
+                #gives a waring if you have Filtered all points and swich markers off
                 if len(self.df.index) == 0:
                     self.markerexistance = False
                     msg = QMessageBox()
@@ -414,22 +428,23 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     msg.setText("WARNING: The selected data range is empty")
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
-                else:
+                else:#if filtered data is not empty shich markers on
                     self.markerexistance = True
 
-            except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setText(str(e))
-                msg.setWindowTitle("WARNING")
-                msg.exec_()
-            except:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
-                msg.setWindowTitle("WARNING")
-                msg.exec_()
+            # except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
+            #     msg = QMessageBox()
+            #     msg.setIcon(QMessageBox.Warning)
+            #     msg.setText(str(e))
+            #     msg.setWindowTitle("WARNING")
+            #     msg.exec_()
+            # except:
+            #     msg = QMessageBox()
+            #     msg.setIcon(QMessageBox.Warning)
+            #     msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
+            #     msg.setWindowTitle("WARNING")
+            #     msg.exec_()
 
-        elif ~activ:#undo filter Button
-            self.df = self.DF
+        elif ~activ:#undo filter Button, resets Dataset
+                    self.df = self.DF
+                    self.textfilter=[]
         self.tablefiller()

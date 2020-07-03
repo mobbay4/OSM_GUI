@@ -1,16 +1,20 @@
 
 ## ToDO input von Martin:
 
-
 Behandeln von Sprüngen in den Datensätzen
  - Liste mit GPS-Sprüngen erzeugen (Toleranzvorschlag > 60km - Gotthard Basistunnel)
  - Sprünge in Datensatz mit Marker highliten (Beginn, Ende), Linie des Sprungs ausblenden
  - (nicht priorisiert) Sprünge in den Regionen um lange Alpentunnel nicht ausblenden, Toleranz auf 10 km reduzieren
+ - in excel file schreiben
+ - Abstand angeben km -> Sprüngefilter
+ - grad in km mit faktor umrechenen
 
 
-Datei(z.B. txt) mit Filtereinstellungen zum html File ablegen --> damit nachvollzogen werden kann, was dargestellt wird
-Filtersettings in Karte reinschreiben
+[ERLEDIGT]Datei(z.B. txt) mit Filtereinstellungen zum html File ablegen --> damit nachvollzogen werden kann, was dargestellt wird
+[ERLEDIGT]Filtersettings in Karte reinschreiben popup
+[ERLEDIGT]tooltip ["filtersettings"]
 
+Circle Marker?
 
 
 ## TODO:
@@ -18,6 +22,7 @@ Filtersettings in Karte reinschreiben
 
 
 Code aufräumen:
+ - überall ständig überprüfen ob df exisitiert
  - Datentypen: Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
  - Warning Messages überprüfen
  - nochmal alles einmal durchdenken
@@ -42,6 +47,7 @@ Optionale Funktionen:
  - Datengruppen per folium für die verschiedenen filter
  - Karte in dem Fenster öffnen
  - Dateiexplorer
+ - Featuregroups mit mehreren Filtereinstellungen?
  - Kann man die Tabelle auch ohne For Schleife befüllen?-> Schneller=> alle Daten drin
  - Karte in PyQt5: Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
 Process Bar:
