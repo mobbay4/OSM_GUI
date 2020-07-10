@@ -1,10 +1,10 @@
 import pandas as pd
+import numpy as np
 #from openpyxl.workbook import Workbook
 import folium
 from folium.plugins import MarkerCluster
 from PyQt5.QtWidgets import QMessageBox, QTableWidget,QTableWidgetItem, QProgressDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 
 
@@ -183,23 +183,23 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             #Mappingsetup
             tile  = self.comboBox_Maptype.currentText()
             map = folium.Map( tiles= tile,zoom_start = 20,control_scale=True)
-            mc  = MarkerCluster()
+
             if self.markerexistance & self.dataloaded:
+                mc  = MarkerCluster()#initialisieren der MarkerCluster
                 #Auslesen der Markercoordinaten
-                i_lat = self.QComboBox_Latetude_val.currentText()
+                i_lat = self.QComboBox_Latetude_val.currentText()#auslesen der lat lon indizes im Dataframe
                 i_lon = self.QComboBox_Longetude_val.currentText()
 
-                if self.checkBox_jump.isChecked():#für den Jumpfilter
-                    self.df.reset_index(drop=True, inplace=True)
-                    jumpstring = self.comboBox_markerjump.currentText()
-                    jumprate = int(jumpstring[0])
+                if self.checkBox_jump.isChecked():#für den Jumpratefilter (just keep every [Jumprate] Marker)
+                    self.df.reset_index(drop=True, inplace=True)#stellt sicher dass Indizes fortlaufend nummeriert sind
+                    jumprate = int(self.text_jumprate.text())#auslesen der Jumprate
                     goodindex = range(0, len(self.df.index), jumprate)
                     x = self.df
                     del(self.df)
                     self.df = x.iloc[goodindex,:]
                     del(x)
 
-                lat = self.df.loc[:][i_lat]
+                lat = self.df.loc[:][i_lat]#auslesen der lat lon kooridinaten
                 lon = self.df.loc[:][i_lon]
 
                 if self.checkBox_Marker.isChecked() and len(lat)>3000:
@@ -207,39 +207,73 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     msg.setIcon(QMessageBox.Warning)
                     msg.setText("WARNING: You have printed over 3000 Markers maybe your map will be unstable try using MarkerClusters or the Jumpfilter")
                     msg.setWindowTitle("WARNING")
-                    msg.exec_()
+                    msg.exec_()#waring for to much Markers
                 #vorbereiten der Markercoordinaten
-                points = [] #liste für PolyLine
-                tool1       = self.comboBox_tooltip_1.currentText()#auslesen der tooltipspalte1
-                tool2       = self.comboBox_tooltip_2.currentText()#auslesen der tooltipspalte2
-                clustercheck = self.checkBox_cluster.isChecked()#auslesen ob cluster geplottet werden sollen
-                markercheck  = self.checkBox_Marker.isChecked()#auslesen ob marker geplottet werden sollen
 
-                for i in lat.index:#erstellen der Marker und hinzufügen zu Map
-                    curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
-                    tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
-                    if markercheck:
+                tool1           = self.comboBox_tooltip_1.currentText()#auslesen der tooltipspalte1
+                tool2           = self.comboBox_tooltip_2.currentText()#auslesen der tooltipspalte2
+                clustercheck    = self.checkBox_cluster.isChecked()#auslesen ob cluster geplottet werden sollen
+                markercheck     = self.checkBox_Marker.isChecked()#auslesen ob marker geplottet werden sollen
+                jumpcheck       = self.checkBox_jumpborder_mark.isChecked()#auslesen ob markersprünge markiert werden sollen
+                points          = [] #liste für PolyLine
+                polylinecheck   = self.checkBox_Polyline.isChecked()#auslesen ob polyline geplottet werden soll
+
+                if jumpcheck:
+                    jumpborder = self.text_map_jumpborder_mark.text()
+                    jumpframe = self.findjumps(jumpborder)#Dataframe with jumps between next neighbours over 60km
+                    print("jumpframe=",jumpframe)
+                    jumpindex = jumpframe.loc[:,"oldindex"]#indizes of self.df for the jumppoints
+                    print("jumpindex=",jumpindex)
+                    if jumpindex.empty:
+                        jumpindex.loc[0]=2000000000000000000
+                    for i in lat.index:#erstellen der Marker und hinzufügen zu Map
+                        for jk in jumpindex:
+                            if jk == i:
+                                curentpoint_jp = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
+                                tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
+                                folium.Marker(curentpoint_jp,tooltip = "This marker has a jump",popup=tooltip,icon=folium.Icon(color='red')).add_to(map)
+
+                if markercheck:#fügt marker zu der map hinzu
+                    for i in lat.index:#erstellen der Marker und hinzufügen zu Map
+                        curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
+                        tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
                         folium.Marker(curentpoint,tooltip = tooltip).add_to(map)#fügt marker hinzu
-                    if clustercheck:
+
+                if clustercheck: #erstellt clustermarker
+                    for i in lat.index:#erstellen der Marker und hinzufügen zu Map
+                        curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
+                        tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
                         mc.add_child(folium.Marker(curentpoint,tooltip = tooltip))#fügt cluster hinzu
-                    points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
-                if self.checkBox_Polyline.isChecked():
-                    folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
-                if clustercheck:
                     map.add_child(mc)
+
+                if polylinecheck & len(points)>0:#erstellt PolyLine
+                    if jumpcheck:
+                        for i in lat.index:
+                            for jk in jumpindex:
+                                if jk != i:
+                                    points.append(tuple(curentpoint_jp.loc[i]))#sammelt punkte für die PolyLine
+                    else:
+                        for i in lat.index:
+                            curentpoint = [lat.loc[i],lon.loc[i]]
+                            points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
+                    print("pointslen = ",len(points))
+                    folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
+
                 #Zoom auf auf kooridinaten einstellen
                 sw = self.df.loc[:,[i_lat, i_lon]].min().values.tolist()
                 ne = self.df.loc[:,[i_lat, i_lon]].max().values.tolist()
                 map.fit_bounds([sw, ne])
 
-                #Darstellen der filtersettings
+                #Darstellen der filtersettings mithilfe eines mittig plazierten markers
                 s= self.textfilter
-                for i in range(0,len(s)):
-                   popfiltertext = ''.join([str(elem)+"<br>" for elem in s])
-                infopos     = [(sw[0]+ne[0])/2,(sw[1]+ne[1])/2]
-                infomarker  = folium.Marker(infopos,tooltip="filtersettings",icon=folium.Icon(color='red', icon='info-sign'))
-                pop         = folium.map.Popup(html=popfiltertext, max_width=200,min_width=200).add_to(infomarker)
-                infomarker.add_to(map)
+                if len(s)>0:
+                    for i in range(0,len(s)):
+                       popfiltertext = ''.join([str(elem)+"<br>" for elem in s])
+                    infopos     = [(sw[0]+ne[0])/2,(sw[1]+ne[1])/2]
+                    infomarker  = folium.Marker(infopos,tooltip="filtersettings",icon=folium.Icon(color='red', icon='info-sign'))
+                    pop         = folium.map.Popup(html=popfiltertext, max_width=200,min_width=200).add_to(infomarker)
+                    infomarker.add_to(map)
+
             #Speichern der Karte
             mapname = self.text_Mapname.text()
             map.save(mapname+'.html')
@@ -323,6 +357,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 first = self.text_filter_firstrow.text()
                 last  = self.text_filter_cutoff.text()
 
+
                 #Filtersettings prealocate
                 self.textfilter=[]
 
@@ -376,6 +411,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     del(x)
                     self.textfilter.append(i_time2+" "+op_t2+" "+arg_t2)
                 self.df.reset_index(drop=True, inplace=True) #reset index for potential filtering
+                if self.checkBox_filter_jumppoints.isChecked():
+                    jumpborder = float(self.text_filter_jumpborder.text()) #[km] #set classification for a jump
+                    jumppoints = self.findjumps(jumpborder)
+                    deadindex = jumppoints.loc[:,"oldindex"]
+                    for i in jumppoints.loc[:,"oldindex"]:
+                        self.df=self.df.drop(i)
+                    self.df.reset_index(drop=True, inplace=True)
+                    self.textfilter.append("jumpfilter = True, jumpborder = "+str(jumpborder)+"km")
+
                 if self.checkBox_filter_repeat.isChecked():#Filter for repeating Datapoints
                     self.df.reset_index(drop=True, inplace=True)
                     x = self.df
@@ -448,3 +492,46 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     self.df = self.DF
                     self.textfilter=[]
         self.tablefiller()
+
+    def findjumps(self,jumpborder):
+        ilat = self.QComboBox_Latetude_val.currentText()
+        ilon = self.QComboBox_Longetude_val.currentText()
+        gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
+        gps.loc[:,"oldindex"] = range(0,len(gps.loc[:,ilat]))#save current index
+        lat  = gps.loc[:,[ilat,"oldindex"]]#build Latitude
+        lon  = gps.loc[:,[ilon,"oldindex"]]#build Longitude
+
+        #setting 2 dataframes for next neighbours
+        lat_i  = lat.iloc[range(1,len(lat),2),:]
+        lat_ii = lat.iloc[range(0,len(lat),2),:]
+        lat_i.reset_index(drop=True, inplace=True)#resetting indexes nessesary to subtrackting 2 frames
+        lat_ii.reset_index(drop=True, inplace=True)
+        if len(lat_i)!=len(lat_ii):#check if lat_i and lat_ii have same length
+            if len(lat_i)<len(lat_ii):
+                lat_ii=lat_ii.loc[0:len(lat_i)]
+            elif len(lat_i)>len(lat_ii):
+                lat_i=lat_i.loc[0:len(lat_ii)]
+        delta_lat = lat_i[ilat].sub(lat_ii[ilat])#subtrackting next neighbours
+
+        lon_i  = lon.loc[range(1,len(lon),2),:]
+        lon_ii = lon.loc[range(0,len(lon),2),:]
+        lon_i.reset_index(drop=True, inplace=True)
+        lon_ii.reset_index(drop=True, inplace=True)
+        if len(lon_i)!=len(lon_ii):#check if lon_i and lon_ii have same length
+            if len(lon_i)<len(lon_ii):
+                lon_ii=lon_ii.loc[0:len(lon_i)]
+            elif len(lon_i)>len(lon_ii):
+                lon_i=lon_i.loc[0:len(lon_ii)]
+        delta_lon = lon_i[ilon] - lon_ii[ilon]
+
+        #create distance vector and detect jumps
+        R               = np.sqrt(delta_lat**2 + delta_lon**2)#build a distance vector
+        jumpborder_grad = jumpborder/11.3 #km to ° maybe better convert faktor
+        jumps           = R[R>jumpborder_grad]# find jump
+        print(jumps)
+        #build dataframe with jumppoints
+        lat                    = pd.concat([lat_i.loc[jumps.index.values,:],lat_ii.loc[jumps.index.values,:]])
+        lon                    = pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]])
+        jumppoints             = lat
+        jumppoints.loc[:,ilon] = lon.loc[:,ilon]
+        return jumppoints

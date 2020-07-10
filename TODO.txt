@@ -16,7 +16,6 @@ Behandeln von Sprüngen in den Datensätzen
 [ERLEDIGT]Filtersettings in Karte reinschreiben popup
 [ERLEDIGT]tooltip ["filtersettings"]
 
-Circle Marker?
 
 -Autofiller für Dateinamen [id, firstdate, enddate]
 
@@ -48,6 +47,7 @@ GPS sort vielleicht als filteroption einbauen, der schaut wie weit aufeinander f
 window icon
 
 Optionale Funktionen:
+ - Circle Marker?
  - Datengruppen per folium für die verschiedenen filter
  - Karte in dem Fenster öffnen
  - Dateiexplorer

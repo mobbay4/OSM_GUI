@@ -962,23 +962,23 @@ class Ui_lcd_display(object):
             #Mappingsetup
             tile  = self.comboBox_Maptype.currentText()
             map = folium.Map( tiles= tile,zoom_start = 20,control_scale=True)
-            mc  = MarkerCluster()
+
             if self.markerexistance & self.dataloaded:
+                mc  = MarkerCluster()#initialisieren der MarkerCluster
                 #Auslesen der Markercoordinaten
-                i_lat = self.QComboBox_Latetude_val.currentText()
+                i_lat = self.QComboBox_Latetude_val.currentText()#auslesen der lat lon indizes im Dataframe
                 i_lon = self.QComboBox_Longetude_val.currentText()
 
-                if self.checkBox_jump.isChecked():#für den Jumpfilter
-                    self.df.reset_index(drop=True, inplace=True)
-                    jumpstring = self.comboBox_markerjump.currentText()
-                    jumprate = int(jumpstring[0])
+                if self.checkBox_jump.isChecked():#für den Jumpratefilter (just keep every [Jumprate] Marker)
+                    self.df.reset_index(drop=True, inplace=True)#stellt sicher dass Indizes fortlaufend nummeriert sind
+                    jumprate = int(self.text_jumprate.text())#auslesen der Jumprate
                     goodindex = range(0, len(self.df.index), jumprate)
                     x = self.df
                     del(self.df)
                     self.df = x.iloc[goodindex,:]
                     del(x)
 
-                lat = self.df.loc[:][i_lat]
+                lat = self.df.loc[:][i_lat]#auslesen der lat lon kooridinaten
                 lon = self.df.loc[:][i_lon]
 
                 if self.checkBox_Marker.isChecked() and len(lat)>3000:
@@ -986,46 +986,64 @@ class Ui_lcd_display(object):
                     msg.setIcon(QMessageBox.Warning)
                     msg.setText("WARNING: You have printed over 3000 Markers maybe your map will be unstable try using MarkerClusters or the Jumpfilter")
                     msg.setWindowTitle("WARNING")
-                    msg.exec_()
+                    msg.exec_()#waring for to much Markers
                 #vorbereiten der Markercoordinaten
-                points = [] #liste für PolyLine
-                tool1       = self.comboBox_tooltip_1.currentText()#auslesen der tooltipspalte1
-                tool2       = self.comboBox_tooltip_2.currentText()#auslesen der tooltipspalte2
-                clustercheck = self.checkBox_cluster.isChecked()#auslesen ob cluster geplottet werden sollen
-                markercheck  = self.checkBox_Marker.isChecked()#auslesen ob marker geplottet werden sollen
-                jumppoints = self.findjumps(60)
-                print(jumppoints)
-                deadindex = jumppoints.loc[:,"oldindex"]
-                print(deadindex)
-                if markercheck:
+
+                tool1           = self.comboBox_tooltip_1.currentText()#auslesen der tooltipspalte1
+                tool2           = self.comboBox_tooltip_2.currentText()#auslesen der tooltipspalte2
+                clustercheck    = self.checkBox_cluster.isChecked()#auslesen ob cluster geplottet werden sollen
+                markercheck     = self.checkBox_Marker.isChecked()#auslesen ob marker geplottet werden sollen
+                jumpcheck       = self.checkBox_jumpborder_mark.isChecked()#auslesen ob markersprünge markiert werden sollen
+                points          = [] #liste für PolyLine
+                polylinecheck   = self.checkBox_Polyline.isChecked()#auslesen ob polyline geplottet werden soll
+
+                if jumpcheck:
+                    jumpborder = self.text_map_jumpborder_mark.text()
+                    jumpframe = self.findjumps(jumpborder)#Dataframe with jumps between next neighbours over 60km
+                    print("jumpframe=",jumpframe)
+                    jumpindex = jumpframe.loc[:,"oldindex"]#indizes of self.df for the jumppoints
+                    print("jumpindex=",jumpindex)
+                    if jumpindex.empty:
+                        jumpindex.loc[0]=2000000000000000000
+                    for i in lat.index:#erstellen der Marker und hinzufügen zu Map
+                        for jk in jumpindex:
+                            if jk == i:
+                                curentpoint_jp = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
+                                tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
+                                folium.Marker(curentpoint_jp,tooltip = "This marker has a jump",popup=tooltip,icon=folium.Icon(color='red')).add_to(map)
+
+                if markercheck:#fügt marker zu der map hinzu
                     for i in lat.index:#erstellen der Marker und hinzufügen zu Map
                         curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
                         tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
-                        for jk in deadindex:
-                            if jk == i:
-                                folium.Marker(curentpoint,tooltip = tooltip,icon=folium.Icon(color='red')).add_to(map)
-                            else:
-                                folium.Marker(curentpoint,tooltip = tooltip).add_to(map)#fügt marker hinzu
+                        folium.Marker(curentpoint,tooltip = tooltip).add_to(map)#fügt marker hinzu
 
-                if clustercheck:
+                if clustercheck: #erstellt clustermarker
                     for i in lat.index:#erstellen der Marker und hinzufügen zu Map
                         curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
                         tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
                         mc.add_child(folium.Marker(curentpoint,tooltip = tooltip))#fügt cluster hinzu
-                for i in lat.index:
-                    for jk in deadindex:
-                        if jk != i:
-                            points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
-                if self.checkBox_Polyline.isChecked() & len(points)>0:
-                    folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
-                if clustercheck:
                     map.add_child(mc)
+
+                if polylinecheck & len(points)>0:#erstellt PolyLine
+                    if jumpcheck:
+                        for i in lat.index:
+                            for jk in jumpindex:
+                                if jk != i:
+                                    points.append(tuple(curentpoint_jp.loc[i]))#sammelt punkte für die PolyLine
+                    else:
+                        for i in lat.index:
+                            curentpoint = [lat.loc[i],lon.loc[i]]
+                            points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
+                    print("pointslen = ",len(points))
+                    folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
+
                 #Zoom auf auf kooridinaten einstellen
                 sw = self.df.loc[:,[i_lat, i_lon]].min().values.tolist()
                 ne = self.df.loc[:,[i_lat, i_lon]].max().values.tolist()
                 map.fit_bounds([sw, ne])
 
-                #Darstellen der filtersettings
+                #Darstellen der filtersettings mithilfe eines mittig plazierten markers
                 s= self.textfilter
                 if len(s)>0:
                     for i in range(0,len(s)):
@@ -1034,6 +1052,7 @@ class Ui_lcd_display(object):
                     infomarker  = folium.Marker(infopos,tooltip="filtersettings",icon=folium.Icon(color='red', icon='info-sign'))
                     pop         = folium.map.Popup(html=popfiltertext, max_width=200,min_width=200).add_to(infomarker)
                     infomarker.add_to(map)
+
             #Speichern der Karte
             mapname = self.text_Mapname.text()
             map.save(mapname+'.html')
@@ -1256,32 +1275,44 @@ class Ui_lcd_display(object):
     def findjumps(self,jumpborder):
         ilat = self.QComboBox_Latetude_val.currentText()
         ilon = self.QComboBox_Longetude_val.currentText()
-        gps = self.df.loc[:,[ilat,ilon]]#build working dataframe
+        gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
         gps.loc[:,"oldindex"] = range(0,len(gps.loc[:,ilat]))#save current index
-        lat = gps.loc[:,[ilat,"oldindex"]]#build Latitude
-        lon = gps.loc[:,[ilon,"oldindex"]]#build Longitude
+        lat  = gps.loc[:,[ilat,"oldindex"]]#build Latitude
+        lon  = gps.loc[:,[ilon,"oldindex"]]#build Longitude
 
         #setting 2 dataframes for next neighbours
         lat_i  = lat.iloc[range(1,len(lat),2),:]
         lat_ii = lat.iloc[range(0,len(lat),2),:]
         lat_i.reset_index(drop=True, inplace=True)#resetting indexes nessesary to subtrackting 2 frames
         lat_ii.reset_index(drop=True, inplace=True)
-        delta_lat=lat_i[ilat].sub(lat_ii[ilat])#subtrackting next neighbours
+        if len(lat_i)!=len(lat_ii):#check if lat_i and lat_ii have same length
+            if len(lat_i)<len(lat_ii):
+                lat_ii=lat_ii.loc[0:len(lat_i)]
+            elif len(lat_i)>len(lat_ii):
+                lat_i=lat_i.loc[0:len(lat_ii)]
+        delta_lat = lat_i[ilat].sub(lat_ii[ilat])#subtrackting next neighbours
 
         lon_i  = lon.loc[range(1,len(lon),2),:]
         lon_ii = lon.loc[range(0,len(lon),2),:]
         lon_i.reset_index(drop=True, inplace=True)
         lon_ii.reset_index(drop=True, inplace=True)
+        if len(lon_i)!=len(lon_ii):#check if lon_i and lon_ii have same length
+            if len(lon_i)<len(lon_ii):
+                lon_ii=lon_ii.loc[0:len(lon_i)]
+            elif len(lon_i)>len(lon_ii):
+                lon_i=lon_i.loc[0:len(lon_ii)]
         delta_lon = lon_i[ilon] - lon_ii[ilon]
 
-        R = np.sqrt(delta_lat**2 + delta_lon**2)#build a distance vector
-        jumpborder_grad= jumpborder/11.3 #km to °
-        jumps = R[R>jumpborder_grad]# find jump
-        #build dataframe for jumppoints
-        lat=pd.concat([lat_i.loc[jumps.index.values,:],lat_ii.loc[jumps.index.values,:]])
-        lon=pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]])
-        jumppoints = lat
-        jumppoints.loc[:,ilon]=lon.loc[:,ilon]
+        #create distance vector and detect jumps
+        R               = np.sqrt(delta_lat**2 + delta_lon**2)#build a distance vector
+        jumpborder_grad = jumpborder/11.3 #km to ° maybe better convert faktor
+        jumps           = R[R>jumpborder_grad]# find jump
+        print(jumps)
+        #build dataframe with jumppoints
+        lat                    = pd.concat([lat_i.loc[jumps.index.values,:],lat_ii.loc[jumps.index.values,:]])
+        lon                    = pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]])
+        jumppoints             = lat
+        jumppoints.loc[:,ilon] = lon.loc[:,ilon]
         return jumppoints
 
     def retranslateUi(self, lcd_display):
@@ -1449,7 +1480,6 @@ class Ui_lcd_display(object):
         self.label_15.setText(_translate("lcd_display", "Current Data"))
         self.label_30.setText(_translate("lcd_display", "Lines of Data:"))
         self.bt_cleardata.setText(_translate("lcd_display", "Clear Data"))
-
 
 if __name__ == "__main__":
     import sys
