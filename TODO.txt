@@ -2,14 +2,13 @@
 ## ToDO input von Martin:
 
 Behandeln von Sprüngen in den Datensätzen
- - Liste mit GPS-Sprüngen erzeugen (Toleranzvorschlag > 60km - Gotthard Basistunnel)
- - Sprünge in Datensatz mit Marker highliten (Beginn, Ende), Linie des Sprungs ausblenden
+ [ERLEDIGT]- Liste mit GPS-Sprüngen erzeugen (Toleranzvorschlag > 60km - Gotthard Basistunnel)
+ [ERLEDIGT]- Sprünge in Datensatz mit Marker highliten (Beginn, Ende), Linie des Sprungs ausblenden
  - (nicht priorisiert) Sprünge in den Regionen um lange Alpentunnel nicht ausblenden, Toleranz auf 10 km reduzieren
- - in excel file schreiben
- - Abstand angeben km -> Sprüngefilter
- - grad in km mit faktor umrechenen
+ [ERLEDIGT] - in excel file schreiben
+ [ERLEDIGT]- Abstand angeben km -> Sprüngefilter
+ [ERLEDIGT]- grad in km mit faktor umrechenen
  ------
- -Problem mit points lösen
 
 
 [ERLEDIGT]Datei(z.B. txt) mit Filtereinstellungen zum html File ablegen --> damit nachvollzogen werden kann, was dargestellt wird
@@ -17,13 +16,11 @@ Behandeln von Sprüngen in den Datensätzen
 [ERLEDIGT]tooltip ["filtersettings"]
 
 
--Autofiller für Dateinamen [id, firstdate, enddate]
-
+[ERLEDIGT]-Autofiller für Dateinamen [id, firstdate, enddate]
+[ERLEDIGT]-autofiller lat lon
+-keyboard shortcuts
 
 ## TODO:
-
-
-
 Code aufräumen:
  - überall ständig überprüfen ob df exisitiert
  - Datentypen: Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden

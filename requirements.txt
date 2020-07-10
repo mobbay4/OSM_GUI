@@ -1,3 +1,4 @@
 Folium
 PyQt5
 Pandas
+geopy

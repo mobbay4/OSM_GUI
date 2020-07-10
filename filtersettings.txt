@@ -1,1 +1,0 @@
-speed > 0speed < 11objectid < ['repeatfilter = True']

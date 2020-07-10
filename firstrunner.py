@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'firstrunner.ui'
-#
-# Created by: PyQt5 UI code generator 5.4.1
-#
-# WARNING! All changes made in this file will be lost!
-
 import pandas as pd
 import numpy as np
 #from openpyxl.workbook import Workbook
@@ -13,6 +5,7 @@ import folium
 from folium.plugins import MarkerCluster
 from PyQt5.QtWidgets import QMessageBox, QTableWidget,QTableWidgetItem, QProgressDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_lcd_display(object):
     def setupUi(self, lcd_display):
@@ -566,49 +559,9 @@ class Ui_lcd_display(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.comboBox_tooltip_1 = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_tooltip_1.setObjectName("comboBox_tooltip_1")
-        self.gridLayout_2.addWidget(self.comboBox_tooltip_1, 5, 1, 1, 2)
         self.label_43 = QtWidgets.QLabel(self.centralwidget)
         self.label_43.setObjectName("label_43")
-        self.gridLayout_2.addWidget(self.label_43, 7, 2, 1, 1)
-        self.comboBox_tooltip_2 = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_tooltip_2.setObjectName("comboBox_tooltip_2")
-        self.gridLayout_2.addWidget(self.comboBox_tooltip_2, 6, 1, 1, 2)
-        self.text_jumprate = QtWidgets.QLineEdit(self.centralwidget)
-        self.text_jumprate.setObjectName("text_jumprate")
-        self.gridLayout_2.addWidget(self.text_jumprate, 3, 1, 1, 1)
-        self.checkBox_jump = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_jump.setObjectName("checkBox_jump")
-        self.gridLayout_2.addWidget(self.checkBox_jump, 3, 2, 1, 2)
-        self.comboBox_Maptype = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_Maptype.setObjectName("comboBox_Maptype")
-        self.comboBox_Maptype.addItem("")
-        self.comboBox_Maptype.addItem("")
-        self.comboBox_Maptype.addItem("")
-        self.gridLayout_2.addWidget(self.comboBox_Maptype, 8, 1, 1, 2)
-        self.label_37 = QtWidgets.QLabel(self.centralwidget)
-        self.label_37.setObjectName("label_37")
-        self.gridLayout_2.addWidget(self.label_37, 2, 2, 1, 3)
-        self.label_46 = QtWidgets.QLabel(self.centralwidget)
-        self.label_46.setObjectName("label_46")
-        self.gridLayout_2.addWidget(self.label_46, 4, 2, 1, 1)
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setObjectName("label_4")
-        self.gridLayout_2.addWidget(self.label_4, 5, 0, 1, 1)
-        self.label_38 = QtWidgets.QLabel(self.centralwidget)
-        self.label_38.setObjectName("label_38")
-        self.gridLayout_2.addWidget(self.label_38, 10, 1, 1, 2)
-        self.label_47 = QtWidgets.QLabel(self.centralwidget)
-        self.label_47.setObjectName("label_47")
-        self.gridLayout_2.addWidget(self.label_47, 4, 1, 1, 1)
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_5.setFont(font)
-        self.label_5.setObjectName("label_5")
-        self.gridLayout_2.addWidget(self.label_5, 9, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_43, 8, 3, 1, 1)
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -617,14 +570,54 @@ class Ui_lcd_display(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.gridLayout_2.addWidget(self.label_6, 0, 0, 1, 1)
-        self.text_Mapname = QtWidgets.QLineEdit(self.centralwidget)
-        self.text_Mapname.setObjectName("text_Mapname")
-        self.gridLayout_2.addWidget(self.text_Mapname, 9, 1, 1, 2)
-        self.label_34 = QtWidgets.QLabel(self.centralwidget)
-        self.label_34.setObjectName("label_34")
-        self.gridLayout_2.addWidget(self.label_34, 1, 2, 1, 3)
+        self.comboBox_tooltip_2 = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox_tooltip_2.setObjectName("comboBox_tooltip_2")
+        self.gridLayout_2.addWidget(self.comboBox_tooltip_2, 7, 1, 1, 3)
         spacerItem15 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_2.addItem(spacerItem15, 10, 0, 1, 1)
+        self.gridLayout_2.addItem(spacerItem15, 11, 0, 1, 1)
+        self.comboBox_tooltip_1 = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox_tooltip_1.setObjectName("comboBox_tooltip_1")
+        self.gridLayout_2.addWidget(self.comboBox_tooltip_1, 6, 1, 1, 3)
+        self.label_Maptype = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_Maptype.setFont(font)
+        self.label_Maptype.setObjectName("label_Maptype")
+        self.gridLayout_2.addWidget(self.label_Maptype, 9, 0, 1, 1)
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout_2.addWidget(self.label_4, 6, 0, 1, 1)
+        self.label_38 = QtWidgets.QLabel(self.centralwidget)
+        self.label_38.setObjectName("label_38")
+        self.gridLayout_2.addWidget(self.label_38, 11, 1, 1, 3)
+        self.text_jumprate = QtWidgets.QLineEdit(self.centralwidget)
+        self.text_jumprate.setObjectName("text_jumprate")
+        self.gridLayout_2.addWidget(self.text_jumprate, 4, 1, 1, 1)
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
+        self.gridLayout_2.addWidget(self.label_5, 10, 0, 1, 1)
+        self.checkBox_Marker = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_Marker.setChecked(False)
+        self.checkBox_Marker.setObjectName("checkBox_Marker")
+        self.gridLayout_2.addWidget(self.checkBox_Marker, 1, 0, 1, 2)
+        self.checkBox_Polyline = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_Polyline.setChecked(True)
+        self.checkBox_Polyline.setObjectName("checkBox_Polyline")
+        self.gridLayout_2.addWidget(self.checkBox_Polyline, 8, 0, 1, 2)
+        self.comboBox_Maptype = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox_Maptype.setObjectName("comboBox_Maptype")
+        self.comboBox_Maptype.addItem("")
+        self.comboBox_Maptype.addItem("")
+        self.comboBox_Maptype.addItem("")
+        self.gridLayout_2.addWidget(self.comboBox_Maptype, 9, 1, 1, 3)
+        self.label_47 = QtWidgets.QLabel(self.centralwidget)
+        self.label_47.setObjectName("label_47")
+        self.gridLayout_2.addWidget(self.label_47, 5, 1, 1, 1)
         self.bt_Mapping = QtWidgets.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -635,37 +628,47 @@ class Ui_lcd_display(object):
         self.bt_Mapping.setFont(font)
         self.bt_Mapping.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_Mapping.setObjectName("bt_Mapping")
-        self.gridLayout_2.addWidget(self.bt_Mapping, 11, 0, 1, 3)
-        self.label_31 = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setStrikeOut(False)
-        self.label_31.setFont(font)
-        self.label_31.setObjectName("label_31")
-        self.gridLayout_2.addWidget(self.label_31, 3, 0, 1, 1)
-        self.label_Maptype = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_Maptype.setFont(font)
-        self.label_Maptype.setObjectName("label_Maptype")
-        self.gridLayout_2.addWidget(self.label_Maptype, 8, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.bt_Mapping, 12, 0, 1, 4)
         self.checkBox_cluster = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_cluster.setObjectName("checkBox_cluster")
         self.gridLayout_2.addWidget(self.checkBox_cluster, 2, 0, 1, 2)
-        self.checkBox_Marker = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_Marker.setChecked(False)
-        self.checkBox_Marker.setObjectName("checkBox_Marker")
-        self.gridLayout_2.addWidget(self.checkBox_Marker, 1, 0, 1, 2)
-        self.checkBox_Polyline = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_Polyline.setChecked(True)
-        self.checkBox_Polyline.setObjectName("checkBox_Polyline")
-        self.gridLayout_2.addWidget(self.checkBox_Polyline, 7, 0, 1, 2)
+        self.text_Mapname = QtWidgets.QLineEdit(self.centralwidget)
+        self.text_Mapname.setObjectName("text_Mapname")
+        self.gridLayout_2.addWidget(self.text_Mapname, 10, 1, 1, 3)
+        self.checkBox_jump = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_jump.setObjectName("checkBox_jump")
+        self.gridLayout_2.addWidget(self.checkBox_jump, 4, 0, 1, 1)
+        self.checkBox_jumpborder_mark = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_jumpborder_mark.setChecked(True)
+        self.checkBox_jumpborder_mark.setObjectName("checkBox_jumpborder_mark")
+        self.gridLayout_2.addWidget(self.checkBox_jumpborder_mark, 3, 0, 1, 1)
+        self.text_map_jumpborder_mark = QtWidgets.QLineEdit(self.centralwidget)
+        self.text_map_jumpborder_mark.setObjectName("text_map_jumpborder_mark")
+        self.gridLayout_2.addWidget(self.text_map_jumpborder_mark, 3, 1, 1, 1)
+        self.label_33 = QtWidgets.QLabel(self.centralwidget)
+        self.label_33.setObjectName("label_33")
+        self.gridLayout_2.addWidget(self.label_33, 3, 2, 1, 1)
+        self.label_31 = QtWidgets.QLabel(self.centralwidget)
+        self.label_31.setObjectName("label_31")
+        self.gridLayout_2.addWidget(self.label_31, 4, 2, 1, 2)
+        self.label_46 = QtWidgets.QLabel(self.centralwidget)
+        self.label_46.setObjectName("label_46")
+        self.gridLayout_2.addWidget(self.label_46, 5, 2, 1, 2)
+        self.label_37 = QtWidgets.QLabel(self.centralwidget)
+        self.label_37.setObjectName("label_37")
+        self.gridLayout_2.addWidget(self.label_37, 2, 2, 1, 2)
+        self.label_34 = QtWidgets.QLabel(self.centralwidget)
+        self.label_34.setObjectName("label_34")
+        self.gridLayout_2.addWidget(self.label_34, 1, 2, 1, 2)
+        self.label_50 = QtWidgets.QLabel(self.centralwidget)
+        self.label_50.setObjectName("label_50")
+        self.gridLayout_2.addWidget(self.label_50, 3, 3, 1, 1)
         self.horizontalLayout_2.addLayout(self.gridLayout_2)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.label_13 = QtWidgets.QLabel(self.centralwidget)
-        self.label_13.setObjectName("label_13")
-        self.gridLayout.addWidget(self.label_13, 1, 0, 1, 1)
+        self.label_24 = QtWidgets.QLabel(self.centralwidget)
+        self.label_24.setObjectName("label_24")
+        self.gridLayout.addWidget(self.label_24, 1, 2, 1, 2)
         self.text_datasave_seperator = QtWidgets.QLineEdit(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -674,11 +677,6 @@ class Ui_lcd_display(object):
         self.text_datasave_seperator.setSizePolicy(sizePolicy)
         self.text_datasave_seperator.setObjectName("text_datasave_seperator")
         self.gridLayout.addWidget(self.text_datasave_seperator, 1, 1, 1, 1)
-        self.comboBox_datasave_format = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox_datasave_format.setObjectName("comboBox_datasave_format")
-        self.comboBox_datasave_format.addItem("")
-        self.comboBox_datasave_format.addItem("")
-        self.gridLayout.addWidget(self.comboBox_datasave_format, 5, 1, 1, 1)
         self.label_14 = QtWidgets.QLabel(self.centralwidget)
         self.label_14.setObjectName("label_14")
         self.gridLayout.addWidget(self.label_14, 2, 0, 1, 1)
@@ -693,19 +691,14 @@ class Ui_lcd_display(object):
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 5, 0, 1, 1)
-        self.label_24 = QtWidgets.QLabel(self.centralwidget)
-        self.label_24.setObjectName("label_24")
-        self.gridLayout.addWidget(self.label_24, 1, 2, 1, 1)
-        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem16, 8, 1, 1, 1)
-        self.label_12 = QtWidgets.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_12.setFont(font)
-        self.label_12.setObjectName("label_12")
-        self.gridLayout.addWidget(self.label_12, 0, 0, 1, 2)
+        self.comboBox_datasave_format = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox_datasave_format.setObjectName("comboBox_datasave_format")
+        self.comboBox_datasave_format.addItem("")
+        self.comboBox_datasave_format.addItem("")
+        self.gridLayout.addWidget(self.comboBox_datasave_format, 5, 1, 1, 1)
+        self.label_13 = QtWidgets.QLabel(self.centralwidget)
+        self.label_13.setObjectName("label_13")
+        self.gridLayout.addWidget(self.label_13, 1, 0, 1, 1)
         self.bt_savefiltered = QtWidgets.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -716,10 +709,29 @@ class Ui_lcd_display(object):
         self.bt_savefiltered.setFont(font)
         self.bt_savefiltered.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_savefiltered.setObjectName("bt_savefiltered")
-        self.gridLayout.addWidget(self.bt_savefiltered, 7, 1, 1, 2)
-        self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setObjectName("checkBox")
-        self.gridLayout.addWidget(self.checkBox, 6, 0, 1, 3)
+        self.gridLayout.addWidget(self.bt_savefiltered, 8, 1, 1, 2)
+        self.checkBox_save_jumppoints_to_xlsx = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_save_jumppoints_to_xlsx.setObjectName("checkBox_save_jumppoints_to_xlsx")
+        self.gridLayout.addWidget(self.checkBox_save_jumppoints_to_xlsx, 6, 0, 1, 2)
+        spacerItem16 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem16, 9, 1, 1, 1)
+        self.label_12 = QtWidgets.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_12.setFont(font)
+        self.label_12.setObjectName("label_12")
+        self.gridLayout.addWidget(self.label_12, 0, 0, 1, 2)
+        self.label_51 = QtWidgets.QLabel(self.centralwidget)
+        self.label_51.setObjectName("label_51")
+        self.gridLayout.addWidget(self.label_51, 7, 0, 1, 1)
+        self.save_text_jumpborder = QtWidgets.QLineEdit(self.centralwidget)
+        self.save_text_jumpborder.setObjectName("save_text_jumpborder")
+        self.gridLayout.addWidget(self.save_text_jumpborder, 7, 1, 1, 1)
+        self.label_52 = QtWidgets.QLabel(self.centralwidget)
+        self.label_52.setObjectName("label_52")
+        self.gridLayout.addWidget(self.label_52, 7, 2, 1, 1)
         self.horizontalLayout_2.addLayout(self.gridLayout)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_3.addLayout(self.verticalLayout)
@@ -787,6 +799,7 @@ class Ui_lcd_display(object):
         lcd_display.setTabOrder(self.comboBox_filter_par1, self.comboBox_filter_par2)
         lcd_display.setTabOrder(self.comboBox_filter_par2, self.comboBox_filter_par3)
 
+
         self.bt_Mapping.clicked.connect(self.mapping_bt)
         self.bt_fileread.clicked.connect(self.readfile_bt)
         self.bt_cleardata.clicked.connect(self.cleardata_bt)
@@ -805,9 +818,7 @@ class Ui_lcd_display(object):
                 name      = name + ".csv"
                 seperator = self.text_datasave_seperator.text()
                 if len(seperator)==1:
-
                     self.df.to_csv(name,index=True,sep=seperator)
-
                 else:
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Warning)
@@ -817,7 +828,10 @@ class Ui_lcd_display(object):
             elif self.comboBox_datasave_format.currentText() == ".xlsx":
                 name      = name + ".xlsx"
                 self.df.to_excel(name)
-
+            if self.checkBox_save_jumppoints_to_xlsx.isChecked():#save jumppoints to a file
+                jumppoints = self.findjumps(float(self.save_text_jumpborder.text()))
+                jumps = self.df.loc[jumppoints.index.values,:]
+                jumps.to_excel("jumppoints.xlsx")
         except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
@@ -879,6 +893,9 @@ class Ui_lcd_display(object):
             raw_path = fr"{path}"
             self.DF = pd.read_csv(raw_path)
             self.textfilter=[]
+            #set working frame
+            self.DF.reset_index(drop=True, inplace=True)
+            self.df = self.DF
 
             self.QComboBox_Longetude_val.clear()       # delete all items from comboBox
             self.QComboBox_Latetude_val.clear()       # delete all items from comboBox
@@ -893,12 +910,20 @@ class Ui_lcd_display(object):
             self.comboBox_tooltip_1.clear()
             self.comboBox_tooltip_2.clear()
 
+            filename = ""
+
             #befüllen der latitude/longitude Comboboxen
-            for i in self.DF.axes[1]:
+            for i in self.df.axes[1]:
+                #Preselect timestap
                 if i == 'timestamp':
                     self.QComboBox_Timstamp.addItem('timestamp')
                     self.comboBox_tooltip_1.addItem("timestamp")
-            for i in self.DF.axes[1]:
+                #Preselect latetude longetude
+                if i == "GPS_longitude":
+                    self.QComboBox_Longetude_val.addItem(i)
+                if i == "GPS_latitude":
+                    self.QComboBox_Latetude_val.addItem(i)
+            for i in self.df.axes[1]:
                 self.QComboBox_Longetude_val.addItem(i)
                 self.QComboBox_Latetude_val.addItem(i)
                 self.comboBox_filter_par1.addItem(i)
@@ -910,17 +935,28 @@ class Ui_lcd_display(object):
                 self.comboBox_filter_time1.addItem(i)
                 self.comboBox_filter_time2.addItem(i)
                 self.comboBox_tooltip_2.addItem(i)
+                if i == "objectid":
+                    #Preselects a filename
+                    filename = filename + str(self.df.loc[0,"objectid"]) + "__"
                 if i == 'timestamp':
                     self.DF = self.DF.sort_values(by=['timestamp'])
                 else:
                     self.QComboBox_Timstamp.addItem(i)
                     self.comboBox_tooltip_1.addItem(i)
-            #set working frame
-            self.DF.reset_index(drop=True, inplace=True)
-            self.df = self.DF
+                if i == "proc_date":
+                    #Preselects a Filename
+                    filename = filename + str(self.df.loc[0,"proc_date"]) + "__" + str(self.df.loc[len(self.df.index)-1,"proc_date"]) + "__"
+                if i != "GPS_latitude":
+                    self.QComboBox_Longetude_val.addItem(i)
+                if i != "GPS_longitude":
+                    self.QComboBox_Latetude_val.addItem(i)
+
             #check if no error ocured
             self.markerexistance = True
             self.dataloaded      = True
+            self.text_Mapname.setText(filename)
+            self.text_datasave_filename.setText("filtereddata"+"_"+filename)
+
         except (IOError,NameError,FileNotFoundError) as e:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
@@ -958,7 +994,7 @@ class Ui_lcd_display(object):
 
     def mapping_bt(self):
 
-        # try:
+        try:
             #Mappingsetup
             tile  = self.comboBox_Maptype.currentText()
             map = folium.Map( tiles= tile,zoom_start = 20,control_scale=True)
@@ -998,19 +1034,17 @@ class Ui_lcd_display(object):
                 polylinecheck   = self.checkBox_Polyline.isChecked()#auslesen ob polyline geplottet werden soll
 
                 if jumpcheck:
-                    jumpborder = self.text_map_jumpborder_mark.text()
+                    jumpborder = float(self.text_map_jumpborder_mark.text())
                     jumpframe = self.findjumps(jumpborder)#Dataframe with jumps between next neighbours over 60km
-                    print("jumpframe=",jumpframe)
-                    jumpindex = jumpframe.loc[:,"oldindex"]#indizes of self.df for the jumppoints
-                    print("jumpindex=",jumpindex)
+                    jumpindex = pd.Series(jumpframe.index.values)#indizes of self.df for the jumppoints
                     if jumpindex.empty:
-                        jumpindex.loc[0]=2000000000000000000
-                    for i in lat.index:#erstellen der Marker und hinzufügen zu Map
-                        for jk in jumpindex:
-                            if jk == i:
-                                curentpoint_jp = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
-                                tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
-                                folium.Marker(curentpoint_jp,tooltip = "This marker has a jump",popup=tooltip,icon=folium.Icon(color='red')).add_to(map)
+                        jumpcheck2 = False
+                    else:
+                        jumpcheck2 = True
+                        for i in jumpindex:#erstellen der Marker und hinzufügen zu Map
+                            curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
+                            popup = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
+                            folium.Marker(curentpoint,tooltip = "This marker has a jump",popup=popup,icon=folium.Icon(color='green')).add_to(map)
 
                 if markercheck:#fügt marker zu der map hinzu
                     for i in lat.index:#erstellen der Marker und hinzufügen zu Map
@@ -1025,18 +1059,19 @@ class Ui_lcd_display(object):
                         mc.add_child(folium.Marker(curentpoint,tooltip = tooltip))#fügt cluster hinzu
                     map.add_child(mc)
 
-                if polylinecheck & len(points)>0:#erstellt PolyLine
-                    if jumpcheck:
+                if polylinecheck:#erstellt PolyLine
+                    if jumpcheck2:
                         for i in lat.index:
                             for jk in jumpindex:
                                 if jk != i:
-                                    points.append(tuple(curentpoint_jp.loc[i]))#sammelt punkte für die PolyLine
+                                    curentpoint = [lat.loc[i],lon.loc[i]]
+                                    points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
                     else:
                         for i in lat.index:
                             curentpoint = [lat.loc[i],lon.loc[i]]
                             points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
-                    print("pointslen = ",len(points))
-                    folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
+                    if len(points)>0:
+                        folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
 
                 #Zoom auf auf kooridinaten einstellen
                 sw = self.df.loc[:,[i_lat, i_lon]].min().values.tolist()
@@ -1044,7 +1079,7 @@ class Ui_lcd_display(object):
                 map.fit_bounds([sw, ne])
 
                 #Darstellen der filtersettings mithilfe eines mittig plazierten markers
-                s= self.textfilter
+                s = self.textfilter
                 if len(s)>0:
                     for i in range(0,len(s)):
                        popfiltertext = ''.join([str(elem)+"<br>" for elem in s])
@@ -1063,18 +1098,18 @@ class Ui_lcd_display(object):
                 msg.setText("WARNING: No data selected")
                 msg.setWindowTitle("WARNING")
                 msg.exec_()
-        # except (IOError,NameError,TypeError,ValueError) as e:
-        #     msg = QMessageBox()
-        #     msg.setIcon(QMessageBox.Warning)
-        #     msg.setText(str(e))
-        #     msg.setWindowTitle("WARNING")
-        #     msg.exec_()
-        # except:
-        #     msg = QMessageBox()
-        #     msg.setIcon(QMessageBox.Warning)
-        #     msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
-        #     msg.setWindowTitle("WARNING")
-        #     msg.exec_()
+        except (IOError,NameError,TypeError,ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
 
     def filteroptions(self,activ):
         #Filter the data as said by the Filteroptions
@@ -1083,9 +1118,9 @@ class Ui_lcd_display(object):
         #                  if False ->filteroptions get undone
 
         if activ: #Apply filter button
-                self.df = self.DF
+            self.df = self.DF
 
-                def filtering(operator, DataFr, argument,i_par):
+            def filtering(operator, DataFr, argument,i_par):
                     #translate Filteroptions into boolians
                     if operator=='<':
                         x=DataFr.loc[DataFr[i_par]<argument]
@@ -1105,7 +1140,7 @@ class Ui_lcd_display(object):
                     elif operator == '!=':
                         x=DataFr.loc[DataFr[i_par]!=argument]
                         return x
-            # try:
+            try:
                 #Auslesen der Datenfelder
                 i_par1 = self.comboBox_filter_par1.currentText() #Spaltenauswahl
                 i_par2 = self.comboBox_filter_par2.currentText()
@@ -1193,12 +1228,10 @@ class Ui_lcd_display(object):
                 if self.checkBox_filter_jumppoints.isChecked():
                     jumpborder = float(self.text_filter_jumpborder.text()) #[km] #set classification for a jump
                     jumppoints = self.findjumps(jumpborder)
-                    deadindex = jumppoints.loc[:,"oldindex"]
-                    for i in jumppoints.loc[:,"oldindex"]:
-                        self.df=self.df.drop(i)
+                    for i in jumppoints.index.values:
+                            self.df=self.df.drop(i)
                     self.df.reset_index(drop=True, inplace=True)
                     self.textfilter.append("jumpfilter = True, jumpborder = "+str(jumpborder)+"km")
-
                 if self.checkBox_filter_repeat.isChecked():#Filter for repeating Datapoints
                     self.df.reset_index(drop=True, inplace=True)
                     x = self.df
@@ -1254,66 +1287,53 @@ class Ui_lcd_display(object):
                 else:#if filtered data is not empty shich markers on
                     self.markerexistance = True
 
-            # except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
-            #     msg = QMessageBox()
-            #     msg.setIcon(QMessageBox.Warning)
-            #     msg.setText(str(e))
-            #     msg.setWindowTitle("WARNING")
-            #     msg.exec_()
-            # except:
-            #     msg = QMessageBox()
-            #     msg.setIcon(QMessageBox.Warning)
-            #     msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
-            #     msg.setWindowTitle("WARNING")
-            #     msg.exec_()
+            except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText(str(e))
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+            except:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
         elif ~activ:#undo filter Button, resets Dataset
-                    self.df = self.DF
-                    self.textfilter=[]
+            self.df = self.DF
+            self.textfilter=[]
         self.tablefiller()
 
     def findjumps(self,jumpborder):
-        ilat = self.QComboBox_Latetude_val.currentText()
-        ilon = self.QComboBox_Longetude_val.currentText()
-        gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
-        gps.loc[:,"oldindex"] = range(0,len(gps.loc[:,ilat]))#save current index
-        lat  = gps.loc[:,[ilat,"oldindex"]]#build Latitude
-        lon  = gps.loc[:,[ilon,"oldindex"]]#build Longitude
+        try:
+            ilat = self.QComboBox_Latetude_val.currentText()
+            ilon = self.QComboBox_Longetude_val.currentText()
+            gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
 
-        #setting 2 dataframes for next neighbours
-        lat_i  = lat.iloc[range(1,len(lat),2),:]
-        lat_ii = lat.iloc[range(0,len(lat),2),:]
-        lat_i.reset_index(drop=True, inplace=True)#resetting indexes nessesary to subtrackting 2 frames
-        lat_ii.reset_index(drop=True, inplace=True)
-        if len(lat_i)!=len(lat_ii):#check if lat_i and lat_ii have same length
-            if len(lat_i)<len(lat_ii):
-                lat_ii=lat_ii.loc[0:len(lat_i)]
-            elif len(lat_i)>len(lat_ii):
-                lat_i=lat_i.loc[0:len(lat_ii)]
-        delta_lat = lat_i[ilat].sub(lat_ii[ilat])#subtrackting next neighbours
+            dlat = np.diff(gps.loc[:,ilat])
+            dlon = np.diff(gps.loc[:,ilon])
 
-        lon_i  = lon.loc[range(1,len(lon),2),:]
-        lon_ii = lon.loc[range(0,len(lon),2),:]
-        lon_i.reset_index(drop=True, inplace=True)
-        lon_ii.reset_index(drop=True, inplace=True)
-        if len(lon_i)!=len(lon_ii):#check if lon_i and lon_ii have same length
-            if len(lon_i)<len(lon_ii):
-                lon_ii=lon_ii.loc[0:len(lon_i)]
-            elif len(lon_i)>len(lon_ii):
-                lon_i=lon_i.loc[0:len(lon_ii)]
-        delta_lon = lon_i[ilon] - lon_ii[ilon]
+            #create distance vector and detect jumps
+            d = np.sqrt(dlat**2 + dlon**2)
+            distance = pd.Series(data=d)#build a distance frame
+            jumps = distance[distance>(jumpborder/11.3)] #km to ° maybe better convert faktor
+            jumppoints = gps.loc[jumps.index.values,["GPS_latitude","GPS_longitude"]]
+            return jumppoints
+        except (IOError,NameError,TypeError,ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
 
-        #create distance vector and detect jumps
-        R               = np.sqrt(delta_lat**2 + delta_lon**2)#build a distance vector
-        jumpborder_grad = jumpborder/11.3 #km to ° maybe better convert faktor
-        jumps           = R[R>jumpborder_grad]# find jump
-        print(jumps)
-        #build dataframe with jumppoints
-        lat                    = pd.concat([lat_i.loc[jumps.index.values,:],lat_ii.loc[jumps.index.values,:]])
-        lon                    = pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]])
-        jumppoints             = lat
-        jumppoints.loc[:,ilon] = lon.loc[:,ilon]
-        return jumppoints
+
 
     def retranslateUi(self, lcd_display):
         _translate = QtCore.QCoreApplication.translate
@@ -1444,42 +1464,51 @@ class Ui_lcd_display(object):
         self.label_48.setText(_translate("lcd_display", "Filter points who jump over"))
         self.label_49.setText(_translate("lcd_display", "[km]"))
         self.checkBox_filter_jumppoints.setText(_translate("lcd_display", "jump Filter on/off"))
+        self.text_filter_jumpborder.setText(_translate("lcd_display", "60"))
         self.bt_applyfilter.setText(_translate("lcd_display", "Apply Filter"))
         self.bt_undofilter.setText(_translate("lcd_display", "Undo Filter"))
         self.label_43.setText(_translate("lcd_display", "(follows sort)"))
-        self.checkBox_jump.setText(_translate("lcd_display", " Filter on /off"))
+        self.label_6.setText(_translate("lcd_display", "Map Options"))
+        self.label_Maptype.setText(_translate("lcd_display", "Maptype"))
+        self.label_4.setText(_translate("lcd_display", "Tooltips in Markers"))
+        self.label_38.setText(_translate("lcd_display", "(or filepath,  dictionarys have to exist)"))
+        self.label_5.setText(_translate("lcd_display", "Mapname"))
+        self.checkBox_Marker.setText(_translate("lcd_display", "Markers"))
+        self.checkBox_Polyline.setText(_translate("lcd_display", "Polyline between Markers"))
         self.comboBox_Maptype.setItemText(0, _translate("lcd_display", "OpenStreetMap"))
         self.comboBox_Maptype.setItemText(1, _translate("lcd_display", "Stamen Terrain"))
         self.comboBox_Maptype.setItemText(2, _translate("lcd_display", "Stamen Toner"))
-        self.label_37.setText(_translate("lcd_display", "(recomendet for large data sets)"))
-        self.label_46.setText(_translate("lcd_display", "(recomendet for large data)"))
-        self.label_4.setText(_translate("lcd_display", "Tooltips in Markers"))
-        self.label_38.setText(_translate("lcd_display", "(or filepath,  dictionarys have to exist)"))
         self.label_47.setText(_translate("lcd_display", "(Integer numbers)"))
-        self.label_5.setText(_translate("lcd_display", "Mapname"))
-        self.label_6.setText(_translate("lcd_display", "Map Options"))
-        self.text_Mapname.setText(_translate("lcd_display", "examplename"))
-        self.label_34.setText(_translate("lcd_display", "(just up to 3000 points)"))
         self.bt_Mapping.setText(_translate("lcd_display", "Save Map"))
-        self.label_31.setText(_translate("lcd_display", "Keep every ... Marker"))
-        self.label_Maptype.setText(_translate("lcd_display", "Maptype"))
         self.checkBox_cluster.setText(_translate("lcd_display", "Cluster Markers"))
-        self.checkBox_Marker.setText(_translate("lcd_display", "Markers"))
-        self.checkBox_Polyline.setText(_translate("lcd_display", "Polyline between Markers"))
-        self.label_13.setText(_translate("lcd_display", "Seperator"))
+        self.text_Mapname.setText(_translate("lcd_display", "examplename"))
+        self.checkBox_jump.setText(_translate("lcd_display", "Keep every "))
+        self.checkBox_jumpborder_mark.setText(_translate("lcd_display", "Mark points who jump over"))
+        self.text_map_jumpborder_mark.setText(_translate("lcd_display", "60"))
+        self.label_33.setText(_translate("lcd_display", "[km]"))
+        self.label_31.setText(_translate("lcd_display", "Marker"))
+        self.label_46.setText(_translate("lcd_display", "(recomendet for large data)"))
+        self.label_37.setText(_translate("lcd_display", "(recomendet for large data sets)"))
+        self.label_34.setText(_translate("lcd_display", "(just up to 3000 points)"))
+        self.label_50.setText(_translate("lcd_display", "(exclude points from polyline)"))
+        self.label_24.setText(_translate("lcd_display", "(only for csv)"))
         self.text_datasave_seperator.setText(_translate("lcd_display", ","))
-        self.comboBox_datasave_format.setItemText(0, _translate("lcd_display", ".csv"))
-        self.comboBox_datasave_format.setItemText(1, _translate("lcd_display", ".xlsx"))
         self.label_14.setText(_translate("lcd_display", "Filename"))
         self.text_datasave_filename.setText(_translate("lcd_display", "file"))
         self.label_2.setText(_translate("lcd_display", "Fileformat"))
-        self.label_24.setText(_translate("lcd_display", "(only for csv)"))
-        self.label_12.setText(_translate("lcd_display", "Save Data"))
+        self.comboBox_datasave_format.setItemText(0, _translate("lcd_display", ".csv"))
+        self.comboBox_datasave_format.setItemText(1, _translate("lcd_display", ".xlsx"))
+        self.label_13.setText(_translate("lcd_display", "Seperator"))
         self.bt_savefiltered.setText(_translate("lcd_display", "Save Filtered Data"))
-        self.checkBox.setText(_translate("lcd_display", "save jumppoints in .xlsx file"))
+        self.checkBox_save_jumppoints_to_xlsx.setText(_translate("lcd_display", "save jumppoints in .xlsx file"))
+        self.label_12.setText(_translate("lcd_display", "Save Data"))
+        self.label_51.setText(_translate("lcd_display", "jumpborder = "))
+        self.save_text_jumpborder.setText(_translate("lcd_display", "60"))
+        self.label_52.setText(_translate("lcd_display", "[km]"))
         self.label_15.setText(_translate("lcd_display", "Current Data"))
         self.label_30.setText(_translate("lcd_display", "Lines of Data:"))
         self.bt_cleardata.setText(_translate("lcd_display", "Clear Data"))
+
 
 if __name__ == "__main__":
     import sys

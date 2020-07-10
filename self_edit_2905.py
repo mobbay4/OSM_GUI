@@ -1,3 +1,6 @@
+
+
+
 import pandas as pd
 import numpy as np
 #from openpyxl.workbook import Workbook
@@ -5,6 +8,7 @@ import folium
 from folium.plugins import MarkerCluster
 from PyQt5.QtWidgets import QMessageBox, QTableWidget,QTableWidgetItem, QProgressDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 
 
@@ -26,9 +30,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 name      = name + ".csv"
                 seperator = self.text_datasave_seperator.text()
                 if len(seperator)==1:
-
                     self.df.to_csv(name,index=True,sep=seperator)
-
                 else:
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Warning)
@@ -38,7 +40,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             elif self.comboBox_datasave_format.currentText() == ".xlsx":
                 name      = name + ".xlsx"
                 self.df.to_excel(name)
-
+            if self.checkBox_save_jumppoints_to_xlsx.isChecked():#save jumppoints to a file
+                jumppoints = self.findjumps(float(self.save_text_jumpborder.text()))
+                jumps = self.df.loc[jumppoints.index.values,:]
+                jumps.to_excel("jumppoints.xlsx")
         except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
@@ -219,19 +224,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 polylinecheck   = self.checkBox_Polyline.isChecked()#auslesen ob polyline geplottet werden soll
 
                 if jumpcheck:
-                    jumpborder = self.text_map_jumpborder_mark.text()
+                    jumpborder = float(self.text_map_jumpborder_mark.text())
                     jumpframe = self.findjumps(jumpborder)#Dataframe with jumps between next neighbours over 60km
-                    print("jumpframe=",jumpframe)
-                    jumpindex = jumpframe.loc[:,"oldindex"]#indizes of self.df for the jumppoints
-                    print("jumpindex=",jumpindex)
+                    jumpindex = pd.Series(jumpframe.index.values)#indizes of self.df for the jumppoints
                     if jumpindex.empty:
-                        jumpindex.loc[0]=2000000000000000000
-                    for i in lat.index:#erstellen der Marker und hinzufügen zu Map
-                        for jk in jumpindex:
-                            if jk == i:
-                                curentpoint_jp = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
-                                tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
-                                folium.Marker(curentpoint_jp,tooltip = "This marker has a jump",popup=tooltip,icon=folium.Icon(color='red')).add_to(map)
+                        jumpcheck2 = False
+                    else:
+                        jumpcheck2 = True
+                        for i in jumpindex:#erstellen der Marker und hinzufügen zu Map
+                            curentpoint = [lat.loc[i],lon.loc[i]]#erstellt aktuellen lat lon punkt
+                            popup = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " +tool2 + " = " + str(self.df.loc[i][tool2]) #erzeugt tooltip
+                            folium.Marker(curentpoint,tooltip = "This marker has a jump",popup=popup,icon=folium.Icon(color='green')).add_to(map)
 
                 if markercheck:#fügt marker zu der map hinzu
                     for i in lat.index:#erstellen der Marker und hinzufügen zu Map
@@ -246,18 +249,19 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                         mc.add_child(folium.Marker(curentpoint,tooltip = tooltip))#fügt cluster hinzu
                     map.add_child(mc)
 
-                if polylinecheck & len(points)>0:#erstellt PolyLine
-                    if jumpcheck:
+                if polylinecheck:#erstellt PolyLine
+                    if jumpcheck2:
                         for i in lat.index:
                             for jk in jumpindex:
                                 if jk != i:
-                                    points.append(tuple(curentpoint_jp.loc[i]))#sammelt punkte für die PolyLine
+                                    curentpoint = [lat.loc[i],lon.loc[i]]
+                                    points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
                     else:
                         for i in lat.index:
                             curentpoint = [lat.loc[i],lon.loc[i]]
                             points.append(tuple(curentpoint))#sammelt punkte für die PolyLine
-                    print("pointslen = ",len(points))
-                    folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
+                    if len(points)>0:
+                        folium.PolyLine(points).add_to(map) #erstellen einer PolyLine
 
                 #Zoom auf auf kooridinaten einstellen
                 sw = self.df.loc[:,[i_lat, i_lon]].min().values.tolist()
@@ -265,7 +269,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 map.fit_bounds([sw, ne])
 
                 #Darstellen der filtersettings mithilfe eines mittig plazierten markers
-                s= self.textfilter
+                s = self.textfilter
                 if len(s)>0:
                     for i in range(0,len(s)):
                        popfiltertext = ''.join([str(elem)+"<br>" for elem in s])
@@ -414,12 +418,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 if self.checkBox_filter_jumppoints.isChecked():
                     jumpborder = float(self.text_filter_jumpborder.text()) #[km] #set classification for a jump
                     jumppoints = self.findjumps(jumpborder)
-                    deadindex = jumppoints.loc[:,"oldindex"]
-                    for i in jumppoints.loc[:,"oldindex"]:
-                        self.df=self.df.drop(i)
+                    for i in jumppoints.index.values:
+                            self.df=self.df.drop(i)
                     self.df.reset_index(drop=True, inplace=True)
                     self.textfilter.append("jumpfilter = True, jumpborder = "+str(jumpborder)+"km")
-
                 if self.checkBox_filter_repeat.isChecked():#Filter for repeating Datapoints
                     self.df.reset_index(drop=True, inplace=True)
                     x = self.df
@@ -497,41 +499,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
         ilat = self.QComboBox_Latetude_val.currentText()
         ilon = self.QComboBox_Longetude_val.currentText()
         gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
-        gps.loc[:,"oldindex"] = range(0,len(gps.loc[:,ilat]))#save current index
-        lat  = gps.loc[:,[ilat,"oldindex"]]#build Latitude
-        lon  = gps.loc[:,[ilon,"oldindex"]]#build Longitude
 
-        #setting 2 dataframes for next neighbours
-        lat_i  = lat.iloc[range(1,len(lat),2),:]
-        lat_ii = lat.iloc[range(0,len(lat),2),:]
-        lat_i.reset_index(drop=True, inplace=True)#resetting indexes nessesary to subtrackting 2 frames
-        lat_ii.reset_index(drop=True, inplace=True)
-        if len(lat_i)!=len(lat_ii):#check if lat_i and lat_ii have same length
-            if len(lat_i)<len(lat_ii):
-                lat_ii=lat_ii.loc[0:len(lat_i)]
-            elif len(lat_i)>len(lat_ii):
-                lat_i=lat_i.loc[0:len(lat_ii)]
-        delta_lat = lat_i[ilat].sub(lat_ii[ilat])#subtrackting next neighbours
-
-        lon_i  = lon.loc[range(1,len(lon),2),:]
-        lon_ii = lon.loc[range(0,len(lon),2),:]
-        lon_i.reset_index(drop=True, inplace=True)
-        lon_ii.reset_index(drop=True, inplace=True)
-        if len(lon_i)!=len(lon_ii):#check if lon_i and lon_ii have same length
-            if len(lon_i)<len(lon_ii):
-                lon_ii=lon_ii.loc[0:len(lon_i)]
-            elif len(lon_i)>len(lon_ii):
-                lon_i=lon_i.loc[0:len(lon_ii)]
-        delta_lon = lon_i[ilon] - lon_ii[ilon]
+        dlat = np.diff(gps.loc[:,ilat])
+        dlon = np.diff(gps.loc[:,ilon])
 
         #create distance vector and detect jumps
-        R               = np.sqrt(delta_lat**2 + delta_lon**2)#build a distance vector
-        jumpborder_grad = jumpborder/11.3 #km to ° maybe better convert faktor
-        jumps           = R[R>jumpborder_grad]# find jump
-        print(jumps)
-        #build dataframe with jumppoints
-        lat                    = pd.concat([lat_i.loc[jumps.index.values,:],lat_ii.loc[jumps.index.values,:]])
-        lon                    = pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]])
-        jumppoints             = lat
-        jumppoints.loc[:,ilon] = lon.loc[:,ilon]
+        d = np.sqrt(dlat**2 + dlon**2)
+        distance = pd.Series(data=d)#build a distance frame
+        jumps = distance[distance>(jumpborder/11.3)] #km to ° maybe better convert faktor
+        jumppoints = gps.loc[jumps.index.values,["GPS_latitude","GPS_longitude"]]
         return jumppoints

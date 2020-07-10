@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+from geopy import distance
+import matplotlib.pyplot as plt
+
 raw_path = fr"example.csv"
 df = pd.read_csv(raw_path)
 
@@ -30,6 +33,21 @@ lat=pd.concat([lat_i.loc[jumps.index.values,:],lat_ii.loc[jumps.index.values,:]]
 lon=pd.concat([lon_i.loc[jumps.index.values,:],lon_ii.loc[jumps.index.values,:]])
 jumppoints = lat
 jumppoints.loc[:,"GPS_longitude"]=lon.loc[:,"GPS_longitude"]
-print(jumppoints)
-jumppoints=jumppoints.drop(700)
+# print(jumppoints)
+# jumppoints=jumppoints.drop(700)
+# print(jumppoints)
+
+# gps_i  = gps.loc[range(1,len(gps.loc[:,"GPS_latitude"]),2),["GPS_latitude","GPS_longitude","oldindex"]]
+# gps_ii = gps.loc[range(0,len(gps.loc[:,"GPS_latitude"]),2),["GPS_latitude","GPS_longitude","oldindex"]]
+# gps_i.reset_index(drop=True, inplace=True)#resetting indexes nessesary to subtrackting 2 frames
+# gps_ii.reset_index(drop=True, inplace=True)
+dlat = np.diff(gps.loc[:,"GPS_latitude"])
+dlon = np.diff(gps.loc[:,"GPS_longitude"])
+d = np.sqrt(dlat**2 + dlon**2)
+distance = pd.DataFrame(data=d,columns= ["distance"])
+print(distance)
+jumps = distance[distance.loc[:,"distance"]>jumpborder_grad]
+print(jumps)
+print(type(jumps))
+jumppoints = gps.loc[jumps.index.values,["GPS_latitude","GPS_longitude"]]
 print(jumppoints)
