@@ -812,95 +812,20 @@ class Ui_lcd_display(object):
         self.markerexistance = False
         self.dataloaded = False
 
-    def savefiltered_bt(self):
-        try:
-            name = self.text_datasave_filename.text()
-            self.df.reset_index(drop=True, inplace=True)
-            if self.comboBox_datasave_format.currentText() == ".csv":
-                name = name + ".csv"
-                seperator = self.text_datasave_seperator.text()
-                if len(seperator) == 1:
-                    self.df.to_csv(name, index=True, sep=seperator)
-                else:
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Warning)
-                    msg.setText("seperator shoult have length=1")
-                    msg.setWindowTitle("WARNING")
-                    msg.exec_()
-            elif self.comboBox_datasave_format.currentText() == ".xlsx":
-                name = name + ".xlsx"
-                self.df.to_excel(name)
-            if self.checkBox_save_jumppoints_to_xlsx.isChecked():  # save jumppoints to a file
-                jumppoints = self.findjumps(float(self.save_text_jumpborder.text()))
-                jumps = self.df.loc[jumppoints.index.values, :]
-                jumps.to_excel("jumppoints.xlsx")
-        except (IOError, NameError, FileNotFoundError, TypeError, ValueError) as e:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText(str(e))
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-        except:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-
-    def cleardata_bt(self):
-        # clears data
-        self.QComboBox_Longetude_val.clear()   # delete all items from comboBox
-        self.QComboBox_Latetude_val.clear()    # delete all items from comboBox
-        self.comboBox_filter_par1.clear()
-        self.comboBox_filter_par2.clear()
-        self.comboBox_filter_par3.clear()
-        self.comboBox_filter_par4.clear()
-        self.comboBox_filter_par5.clear()
-        self.comboBox_filter_par6.clear()
-        self.comboBox_filter_time1.clear()
-        self.comboBox_filter_time2.clear()
-        self.comboBox_tooltip_1.clear()
-        self.comboBox_tooltip_2.clear()
-        self.comboBox_tooltip_1.clear()
-        self.comboBox_tooltip_2.clear()
-        self.df = pd.DataFrame()
-        self.tablefiller()
-        self.markerexistance = False
-        self.dataloaded = False
-
-    def tablefiller(self):
-        # fills the TableWidget with current Data
-        self.df.reset_index(drop=True, inplace=True)
-        columnames = self.df.columns
-        indexnames = self.df.index
-        self.lcdNumber.display(len(indexnames))
-        self.TableWidget.setColumnCount(len(columnames))
-        if len(indexnames) > 100:
-            self.TableWidget.setRowCount(100)
-            indexlaenge = 100
-        else:
-            self.TableWidget.setRowCount(len(indexnames))
-            indexlaenge = len(indexnames)
-        horHeaders = []
-        for i in range(0, indexlaenge):
-            for j in range(0, len(columnames)):
-                horHeaders.append(columnames[j])
-                a = (self.df.loc[indexnames[i]][columnames[j]])
-                self.TableWidget.setItem(i, j, QTableWidgetItem(str(a)))
-        self.TableWidget.setHorizontalHeaderLabels(horHeaders)
-
     def readfile_bt(self):
+        # purpes: Reads Data from a csv File and fills comboBoxes
+        # ------
         try:
             path = self.text_filepath.text()
             raw_path = fr"{path}"
             self.DF = pd.read_csv(raw_path)
             self.textfilter = []
-            # set working frame
-            self.DF.reset_index(drop=True, inplace=True)
+            self.DF.reset_index(drop=True, inplace=True)  # set working frame
             self.df = self.DF
 
-            self.QComboBox_Longetude_val.clear()       # delete all items from comboBox
-            self.QComboBox_Latetude_val.clear()       # delete all items from comboBox
+            # delete all items from comboBox
+            self.QComboBox_Longetude_val.clear()
+            self.QComboBox_Latetude_val.clear()
             self.comboBox_filter_par1.clear()
             self.comboBox_filter_par2.clear()
             self.comboBox_filter_par3.clear()
@@ -912,7 +837,7 @@ class Ui_lcd_display(object):
             self.comboBox_tooltip_1.clear()
             self.comboBox_tooltip_2.clear()
 
-            filename = ""
+            filename = ""  # prealocate Filename
 
             # befüllen der latitude/longitude Comboboxen
             for i in self.df.axes[1]:
@@ -956,8 +881,8 @@ class Ui_lcd_display(object):
             # check if no error ocured
             self.markerexistance = True
             self.dataloaded = True
-            self.text_Mapname.setText(filename)
-            self.text_datasave_filename.setText("filtereddata" + "_" + filename)
+            self.text_Mapname.setText(filename)  # Preselects a Map Filename
+            self.text_datasave_filename.setText("filtereddata" + "_" + filename)  # Preselects a Data Filename
 
         except (IOError, NameError, FileNotFoundError) as e:
             msg = QMessageBox()
@@ -971,9 +896,57 @@ class Ui_lcd_display(object):
             msg.setWindowTitle("WARNING")
             msg.setText("Unknown Error, (No IOError, FileNotFoundError ")
             msg.exec_()
+        self.tablefiller()  # fills table
+
+    def tablefiller(self):
+        # purpes: fills the TableWidget with current Data
+        # ------
+        self.df.reset_index(drop=True, inplace=True)
+        columnames = self.df.columns  # gets columnames of current Data
+        indexnames = self.df.index  # gets current index
+        self.lcdNumber.display(len(indexnames))  # shows current linenumber in a LCD display
+
+        # fills table with current Data
+        self.TableWidget.setColumnCount(len(columnames))
+        if len(indexnames) > 100:
+            self.TableWidget.setRowCount(100)
+            indexlaenge = 100
+        else:
+            self.TableWidget.setRowCount(len(indexnames))
+            indexlaenge = len(indexnames)
+        horHeaders = []
+        for i in range(0, indexlaenge):
+            for j in range(0, len(columnames)):
+                horHeaders.append(columnames[j])
+                a = (self.df.loc[indexnames[i]][columnames[j]])
+                self.TableWidget.setItem(i, j, QTableWidgetItem(str(a)))
+        self.TableWidget.setHorizontalHeaderLabels(horHeaders)
+
+    def cleardata_bt(self):
+        # purpes: clears data
+        # ------
+        self.QComboBox_Longetude_val.clear()   # delete all items from comboBox
+        self.QComboBox_Latetude_val.clear()    # delete all items from comboBox
+        self.comboBox_filter_par1.clear()
+        self.comboBox_filter_par2.clear()
+        self.comboBox_filter_par3.clear()
+        self.comboBox_filter_par4.clear()
+        self.comboBox_filter_par5.clear()
+        self.comboBox_filter_par6.clear()
+        self.comboBox_filter_time1.clear()
+        self.comboBox_filter_time2.clear()
+        self.comboBox_tooltip_1.clear()
+        self.comboBox_tooltip_2.clear()
+        self.comboBox_tooltip_1.clear()
+        self.comboBox_tooltip_2.clear()
+        self.df = pd.DataFrame()
         self.tablefiller()
+        self.markerexistance = False
+        self.dataloaded = False
 
     def sort_bt(self):
+        # purpes: sorts values by selected column
+        # ------
         try:
             sortname = self.QComboBox_Timstamp.currentText()
             self.DF = self.DF.sort_values(by=[sortname])
@@ -994,154 +967,37 @@ class Ui_lcd_display(object):
             msg.setWindowTitle("WARNING")
             msg.exec_()
 
-    def mapping_bt(self):
-
-        try:
-            # Mappingsetup
-            tile = self.comboBox_Maptype.currentText()
-            map = folium.Map(tiles=tile, zoom_start=20, control_scale=True)
-
-            if self.markerexistance & self.dataloaded:
-                mc = MarkerCluster()  # initialisieren der MarkerCluster
-                # Auslesen der Markercoordinaten
-                i_lat = self.QComboBox_Latetude_val.currentText()  # auslesen der lat lon indizes im Dataframe
-                i_lon = self.QComboBox_Longetude_val.currentText()
-
-                if self.checkBox_jump.isChecked():  # für den Jumpratefilter (just keep every [Jumprate] Marker)
-                    self.df.reset_index(drop=True, inplace=True)  # stellt sicher dass Indizes fortlaufend nummeriert sind
-                    jumprate = int(self.text_jumprate.text())  # auslesen der Jumprate
-                    goodindex = range(0, len(self.df.index), jumprate)
-                    x = self.df
-                    del(self.df)
-                    self.df = x.iloc[goodindex, :]
-                    del(x)
-
-                lat = self.df.loc[:][i_lat]  # auslesen der lat lon kooridinaten
-                lon = self.df.loc[:][i_lon]
-
-                if self.checkBox_Marker.isChecked() and len(lat) > 3000:
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Warning)
-                    msg.setText("WARNING: You have printed over 3000 Markers maybe your map will be unstable try using MarkerClusters or the Jumpfilter")
-                    msg.setWindowTitle("WARNING")
-                    msg.exec_()  # waring for to much Markers
-
-                # vorbereiten der Markercoordinaten
-                tool1           = self.comboBox_tooltip_1.currentText()  # auslesen der tooltipspalte1
-                tool2           = self.comboBox_tooltip_2.currentText()  # auslesen der tooltipspalte2
-                clustercheck    = self.checkBox_cluster.isChecked()  # auslesen ob cluster geplottet werden sollen
-                markercheck     = self.checkBox_Marker.isChecked()  # auslesen ob marker geplottet werden sollen
-                jumpcheck       = self.checkBox_jumpborder_mark.isChecked()  # auslesen ob markersprünge markiert werden sollen
-                points          = []  # liste für PolyLine
-                polylinecheck   = self.checkBox_Polyline.isChecked()  # auslesen ob polyline geplottet werden soll
-
-                if jumpcheck:
-                    jumpborder = float(self.text_map_jumpborder_mark.text())
-                    jumpframe = self.findjumps(jumpborder)  # Dataframe with jumps between next neighbours over 60km
-                    jumpindex = pd.Series(jumpframe.index.values)  # indizes of self.df for the jumppoints
-                    if jumpindex.empty:
-                        jumpcheck2 = False
-                    else:
-                        jumpcheck2 = True
-                        for i in jumpindex:  # erstellen der Marker und hinzufügen zu Map
-                            curentpoint = [lat.loc[i], lon.loc[i]]  # erstellt aktuellen lat lon punkt
-                            popup = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " + tool2 + " = " + str(self.df.loc[i][tool2])  # erzeugt tooltip
-                            folium.Marker(curentpoint, tooltip="This marker has a jump", popup=popup, icon=folium.Icon(color='green')).add_to(map)
-
-                if markercheck:  # fügt marker zu der map hinzu
-                    for i in lat.index:  # erstellen der Marker und hinzufügen zu Map
-                        curentpoint = [lat.loc[i], lon.loc[i]]  # erstellt aktuellen lat lon punkt
-                        tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " + tool2 + " = " + str(self.df.loc[i][tool2])  # erzeugt tooltip
-                        folium.Marker(curentpoint, tooltip=tooltip).add_to(map)  # fügt marker hinzu
-
-                if clustercheck:  # erstellt clustermarker
-                    for i in lat.index:  # erstellen der Marker und hinzufügen zu Map
-                        curentpoint = [lat.loc[i], lon.loc[i]]  # erstellt aktuellen lat lon punkt
-                        tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " + tool2 + " = " + str(self.df.loc[i][tool2])  # erzeugt tooltip
-                        mc.add_child(folium.Marker(curentpoint, tooltip=tooltip))  # fügt cluster hinzu
-                    map.add_child(mc)
-
-                if polylinecheck:  # erstellt PolyLine
-                    if jumpcheck2:
-                        for i in lat.index:
-                            for jk in jumpindex:
-                                if jk != i:
-                                    curentpoint = [lat.loc[i], lon.loc[i]]
-                                    points.append(tuple(curentpoint))  # sammelt punkte für die PolyLine
-                    else:
-                        for i in lat.index:
-                            curentpoint = [lat.loc[i], lon.loc[i]]
-                            points.append(tuple(curentpoint))  # sammelt punkte für die PolyLine
-                    if len(points)>0:
-                        folium.PolyLine(points).add_to(map)  # erstellen einer PolyLine
-
-                # Zoom auf auf kooridinaten abstimmen
-                sw = self.df.loc[:, [i_lat, i_lon]].min().values.tolist()
-                ne = self.df.loc[:, [i_lat, i_lon]].max().values.tolist()
-                map.fit_bounds([sw, ne])
-
-                # Darstellen der filtersettings mithilfe eines mittig plazierten markers
-                s = self.textfilter
-                if len(s) > 0:
-                    for i in range(0, len(s)):
-                        popfiltertext = ''.join([str(elem) + "<br>" for elem in s])
-                    infopos     = [(sw[0] + ne[0]) / 2, (sw[1] + ne[1]) / 2]
-                    infomarker  = folium.Marker(infopos, tooltip="filtersettings", icon=folium.Icon(color='red', icon='info-sign'))
-                    pop         = folium.map.Popup(html=popfiltertext, max_width=200, min_width=200).add_to(infomarker)
-                    infomarker.add_to(map)
-
-            # Speichern der Karte
-            mapname = self.text_Mapname.text()
-            map.save(mapname + '.html')
-
-            if self.dataloaded is not True:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setText("WARNING: No data selected")
-                msg.setWindowTitle("WARNING")
-                msg.exec_()
-        except (IOError, NameError, TypeError, ValueError) as e:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText(str(e))
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-        except:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-
     def filteroptions(self,activ):
-        # Filter the data as said by the Filteroptions
+        # purpes: Filter the data as said by the Filteroptions
+        # ------
         # Input Parameter:
-        # activ....[bolian] if True ->filteroptions get aplyed
-        #                  if False ->filteroptions get undone
-
-        if activ: # Apply filter button
+        # ---------------
+        # activ....[bolian] if True  ->filteroptions get aplyed
+        #                   if False ->filteroptions get undone
+        if activ:  # Apply filter button
             self.df = self.DF
 
-            def filtering(operator, DataFr, argument,i_par):
-                    # translate Filteroptions into boolians
-                    if operator == '<':
-                        x = DataFr.loc[DataFr[i_par] < argument]
-                        return x
-                    elif operator == '>':
-                        x = DataFr.loc[DataFr[i_par] > argument]
-                        return x
-                    elif operator == '<=':
-                        x = DataFr.loc[DataFr[i_par] <= argument]
-                        return x
-                    elif operator == '>=':
-                        x = DataFr.loc[DataFr[i_par] >= argument]
-                        return x
-                    elif operator == '==':
-                        x = DataFr.loc[DataFr[i_par] == argument]
-                        return x
-                    elif operator == '!=':
-                        x = DataFr.loc[DataFr[i_par] != argument]
-                        return x
+            def filtering(operator, DataFr, argument, i_par):
+                # translate Filteroptions into boolians
+                if operator == '<':
+                    x = DataFr.loc[DataFr[i_par] < argument]
+                    return x
+                elif operator == '>':
+                    x = DataFr.loc[DataFr[i_par] > argument]
+                    return x
+                elif operator == '<=':
+                    x = DataFr.loc[DataFr[i_par] <= argument]
+                    return x
+                elif operator == '>=':
+                    x = DataFr.loc[DataFr[i_par] >= argument]
+                    return x
+                elif operator == '==':
+                    x = DataFr.loc[DataFr[i_par] == argument]
+                    return x
+                elif operator == '!=':
+                    x = DataFr.loc[DataFr[i_par] != argument]
+                    return x
+
             try:
                 # Auslesen der Datenfelder
                 i_par1 = self.comboBox_filter_par1.currentText()  # Spaltenauswahl
@@ -1307,6 +1163,165 @@ class Ui_lcd_display(object):
             self.textfilter = []
         self.tablefiller()
 
+    def savefiltered_bt(self):
+        try:
+            name = self.text_datasave_filename.text()
+            self.df.reset_index(drop=True, inplace=True)
+            if self.comboBox_datasave_format.currentText() == ".csv":
+                name = name + ".csv"
+                seperator = self.text_datasave_seperator.text()
+                if len(seperator) == 1:
+                    self.df.to_csv(name, index=True, sep=seperator)
+                else:
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                    msg.setText("seperator shoult have length=1")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
+            elif self.comboBox_datasave_format.currentText() == ".xlsx":
+                name = name + ".xlsx"
+                self.df.to_excel(name)
+            if self.checkBox_save_jumppoints_to_xlsx.isChecked():  # save jumppoints to a file
+                jumppoints = self.findjumps(float(self.save_text_jumpborder.text()))
+                jumps = self.df.loc[jumppoints.index.values, :]
+                jumps.to_excel("jumppoints.xlsx")
+        except (IOError, NameError, FileNotFoundError, TypeError, ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+
+
+
+    def mapping_bt(self):
+        # purpes: Generates .html file witch contains the map
+        # ------
+        try:
+            # Mappingsetup
+            tile = self.comboBox_Maptype.currentText()
+            map = folium.Map(tiles=tile, zoom_start=20, control_scale=True)
+
+            if self.markerexistance & self.dataloaded:
+                mc = MarkerCluster()  # initialisieren der MarkerCluster
+                # Auslesen der Markercoordinaten
+                i_lat = self.QComboBox_Latetude_val.currentText()  # auslesen der lat lon indizes im Dataframe
+                i_lon = self.QComboBox_Longetude_val.currentText()
+
+                if self.checkBox_jump.isChecked():  # für den Jumpratefilter (just keep every [Jumprate] Marker)
+                    self.df.reset_index(drop=True, inplace=True)  # stellt sicher dass Indizes fortlaufend nummeriert sind
+                    jumprate = int(self.text_jumprate.text())  # auslesen der Jumprate
+                    goodindex = range(0, len(self.df.index), jumprate)
+                    x = self.df
+                    del(self.df)
+                    self.df = x.iloc[goodindex, :]
+                    del(x)
+
+                lat = self.df.loc[:][i_lat]  # auslesen der lat lon kooridinaten
+                lon = self.df.loc[:][i_lon]
+
+                if self.checkBox_Marker.isChecked() and len(lat) > 3000:
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                    msg.setText("WARNING: You have printed over 3000 Markers maybe your map will be unstable try using MarkerClusters or the Jumpfilter")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()  # waring for to much Markers
+
+                # vorbereiten der Markercoordinaten
+                tool1 = self.comboBox_tooltip_1.currentText()  # auslesen der tooltipspalte1
+                tool2 = self.comboBox_tooltip_2.currentText()  # auslesen der tooltipspalte2
+                clustercheck  = self.checkBox_cluster.isChecked()  # auslesen ob cluster geplottet werden sollen
+                markercheck   = self.checkBox_Marker.isChecked()  # auslesen ob marker geplottet werden sollen
+                jumpcheck     = self.checkBox_jumpborder_mark.isChecked()  # auslesen ob markersprünge markiert werden sollen
+                points        = []  # liste für PolyLine
+                polylinecheck = self.checkBox_Polyline.isChecked()  # auslesen ob polyline geplottet werden soll
+
+                if jumpcheck:
+                    jumpborder = float(self.text_map_jumpborder_mark.text())
+                    jumpframe = self.findjumps(jumpborder)  # Dataframe with jumps between next neighbours over 60km
+                    jumpindex = pd.Series(jumpframe.index.values)  # indizes of self.df for the jumppoints
+                    if jumpindex.empty:
+                        jumpcheck2 = False
+                    else:
+                        jumpcheck2 = True
+                        for i in jumpindex:  # erstellen der Marker und hinzufügen zu Map
+                            curentpoint = [lat.loc[i], lon.loc[i]]  # erstellt aktuellen lat lon punkt
+                            popup = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " + tool2 + " = " + str(self.df.loc[i][tool2])  # erzeugt tooltip
+                            folium.Marker(curentpoint, tooltip="This marker has a jump", popup=popup, icon=folium.Icon(color='green')).add_to(map)
+
+                if markercheck:  # fügt marker zu der map hinzu
+                    for i in lat.index:  # erstellen der Marker und hinzufügen zu Map
+                        curentpoint = [lat.loc[i], lon.loc[i]]  # erstellt aktuellen lat lon punkt
+                        tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " + tool2 + " = " + str(self.df.loc[i][tool2])  # erzeugt tooltip
+                        folium.Marker(curentpoint, tooltip=tooltip).add_to(map)  # fügt marker hinzu
+
+                if clustercheck:  # erstellt clustermarker
+                    for i in lat.index:  # erstellen der Marker und hinzufügen zu Map
+                        curentpoint = [lat.loc[i], lon.loc[i]]  # erstellt aktuellen lat lon punkt
+                        tooltip = tool1 + " = " + str(self.df.loc[i][tool1]) + " ; " + tool2 + " = " + str(self.df.loc[i][tool2])  # erzeugt tooltip
+                        mc.add_child(folium.Marker(curentpoint, tooltip=tooltip))  # fügt cluster hinzu
+                    map.add_child(mc)
+
+                if polylinecheck:  # erstellt PolyLine
+                    if jumpcheck2:
+                        for i in lat.index:
+                            for jk in jumpindex:
+                                if jk != i:
+                                    curentpoint = [lat.loc[i], lon.loc[i]]
+                                    points.append(tuple(curentpoint))  # sammelt punkte für die PolyLine
+                    else:
+                        for i in lat.index:
+                            curentpoint = [lat.loc[i], lon.loc[i]]
+                            points.append(tuple(curentpoint))  # sammelt punkte für die PolyLine
+                    if len(points)>0:
+                        folium.PolyLine(points).add_to(map)  # erstellen einer PolyLine
+
+                # Zoom auf auf kooridinaten abstimmen
+                sw = self.df.loc[:, [i_lat, i_lon]].min().values.tolist()
+                ne = self.df.loc[:, [i_lat, i_lon]].max().values.tolist()
+                map.fit_bounds([sw, ne])
+
+                # Darstellen der filtersettings mithilfe eines mittig plazierten markers
+                s = self.textfilter
+                if len(s) > 0:
+                    for i in range(0, len(s)):
+                        popfiltertext = ''.join([str(elem) + "<br>" for elem in s])
+                    infopos     = [(sw[0] + ne[0]) / 2, (sw[1] + ne[1]) / 2]
+                    infomarker  = folium.Marker(infopos, tooltip="filtersettings", icon=folium.Icon(color='red', icon='info-sign'))
+                    pop         = folium.map.Popup(html=popfiltertext, max_width=200, min_width=200).add_to(infomarker)
+                    infomarker.add_to(map)
+
+            # Speichern der Karte
+            mapname = self.text_Mapname.text()
+            map.save(mapname + '.html')
+
+            if self.dataloaded is not True:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("WARNING: No data selected")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+        except (IOError, NameError, TypeError, ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+
+
+
     def findjumps(self, jumpborder):
         try:
             ilat = self.QComboBox_Latetude_val.currentText()
@@ -1350,37 +1365,37 @@ class Ui_lcd_display(object):
         self.label_29.setText(_translate("lcd_display", "(Default: timestamp)"))
         self.bt_fileread.setText(_translate("lcd_display", "Readfile"))
         self.textBrowser.setHtml(_translate("lcd_display", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600; text-decoration: underline;\">How to use:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">1) Read the Data</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Enter a filename or a filepath and push &quot;Readfile&quot;-Button</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- add the fileformat .csv if nessesary</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- now Data will displayed in the table and comboboxes will be filled</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">2) Basic Setings</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Choose column name of latetude and longetude with comboboxes</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    2.1) <span style=\" text-decoration: underline;\">Sorting</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    - The gui sorts automaticly by the &quot;timestamp&quot; column name </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    - if you want to sort by an other column name choose the column name and push the &quot;Sortbutton&quot;</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">3) Filter Options</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- If you want to use a filter choose a column name and enter a if argument. </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Then check the checkbox and push the &quot;Apply Filter&quot;-button.</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- The &quot;Undo Filter&quot;-button will reset the filter. </p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- For the time filter you have to enter in the same format as the refering data!</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">4) Save Data</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Now you can save the filtered data in CSV or Excel</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- The seperator has to be one character</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">5) Map Options</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Choose if you want Markers/Polyline and witch Maptype\\Mapname you want</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- the chosen tooltips will be displayed in the tooltip of every individual marker</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- push the &quot;Save Map&quot;-button to create a .html file with your map</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">6) Current Data</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- the table on the right shows the first 500 rows of the current loadet (and filtered) data</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- the &quot;Clear Data&quot;-button will delete all loadet data in the cash</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+        "p, li { white-space: pre-wrap; }\n"
+        "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600; text-decoration: underline;\">How to use:</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">1) Read the Data</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Enter a filename or a filepath and push &quot;Readfile&quot;-Button</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- add the fileformat .csv if nessesary</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- now Data will displayed in the table and comboboxes will be filled</p>\n"
+        "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">2) Basic Setings</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Choose column name of latetude and longetude with comboboxes</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    2.1) <span style=\" text-decoration: underline;\">Sorting</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    - The gui sorts automaticly by the &quot;timestamp&quot; column name </p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">    - if you want to sort by an other column name choose the column name and push the &quot;Sortbutton&quot;</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">3) Filter Options</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- If you want to use a filter choose a column name and enter a if argument. </p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Then check the checkbox and push the &quot;Apply Filter&quot;-button.</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- The &quot;Undo Filter&quot;-button will reset the filter. </p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- For the time filter you have to enter in the same format as the refering data!</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">4) Save Data</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Now you can save the filtered data in CSV or Excel</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- The seperator has to be one character</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">5) Map Options</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Choose if you want Markers/Polyline and witch Maptype\\Mapname you want</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- the chosen tooltips will be displayed in the tooltip of every individual marker</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- push the &quot;Save Map&quot;-button to create a .html file with your map</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">6) Current Data</span></p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- the table on the right shows the first 500 rows of the current loadet (and filtered) data</p>\n"
+        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- the &quot;Clear Data&quot;-button will delete all loadet data in the cash</p>\n"
+        "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+        "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.label_3.setText(_translate("lcd_display", "Filter Options"))
         self.label_19.setText(_translate("lcd_display", "Parameter 5"))
         self.label_9.setText(_translate("lcd_display", "Parameter 3"))

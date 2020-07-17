@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>2672</width>
-    <height>1930</height>
+    <height>1969</height>
    </rect>
   </property>
   <property name="font">
@@ -1268,47 +1268,7 @@ p, li { white-space: pre-wrap; }
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <layout class="QGridLayout" name="gridLayout_2">
-            <item row="8" column="3">
-             <widget class="QLabel" name="label_43">
-              <property name="text">
-               <string>(follows sort)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Map Options</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1" colspan="3">
-             <widget class="QComboBox" name="comboBox_tooltip_2"/>
-            </item>
-            <item row="11" column="0">
-             <spacer name="verticalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="6" column="1" colspan="3">
-             <widget class="QComboBox" name="comboBox_tooltip_1"/>
-            </item>
-            <item row="9" column="0">
+            <item row="10" column="0">
              <widget class="QLabel" name="label_Maptype">
               <property name="font">
                <font>
@@ -1321,83 +1281,35 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_4">
+            <item row="4" column="2">
+             <widget class="QLabel" name="label_33">
               <property name="text">
-               <string>Tooltips in Markers</string>
+               <string>[km]</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="1" colspan="3">
-             <widget class="QLabel" name="label_38">
+            <item row="5" column="2" colspan="2">
+             <widget class="QLabel" name="label_31">
               <property name="text">
-               <string>(or filepath,  dictionarys have to exist)</string>
+               <string>Marker</string>
               </property>
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QLineEdit" name="text_jumprate"/>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
+             <widget class="QLineEdit" name="text_map_jumpborder_mark">
               <property name="text">
-               <string>Mapname</string>
+               <string>60</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0" colspan="2">
-             <widget class="QCheckBox" name="checkBox_Marker">
+            <item row="2" column="0" colspan="2">
+             <widget class="QCheckBox" name="checkBox_cluster">
               <property name="text">
-               <string>Markers</string>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
+               <string>Cluster Markers</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="0" colspan="2">
-             <widget class="QCheckBox" name="checkBox_Polyline">
-              <property name="text">
-               <string>Polyline between Markers</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="1" colspan="3">
-             <widget class="QComboBox" name="comboBox_Maptype">
-              <item>
-               <property name="text">
-                <string>OpenStreetMap</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Stamen Terrain</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Stamen Toner</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="label_47">
-              <property name="text">
-               <string>(Integer numbers)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="0" colspan="4">
+            <item row="13" column="0" colspan="4">
              <widget class="QPushButton" name="bt_Mapping">
               <property name="font">
                <font>
@@ -1416,28 +1328,110 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="QCheckBox" name="checkBox_cluster">
-              <property name="text">
-               <string>Cluster Markers</string>
-              </property>
-             </widget>
+            <item row="7" column="1" colspan="3">
+             <widget class="QComboBox" name="comboBox_tooltip_1"/>
             </item>
-            <item row="10" column="1" colspan="3">
+            <item row="11" column="1" colspan="3">
              <widget class="QLineEdit" name="text_Mapname">
               <property name="text">
                <string>examplename</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="5" column="0">
              <widget class="QCheckBox" name="checkBox_jump">
               <property name="text">
                <string>Keep every </string>
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
+            <item row="12" column="0">
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="text_jumprate"/>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Mapname</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1" colspan="3">
+             <widget class="QComboBox" name="comboBox_tooltip_2"/>
+            </item>
+            <item row="10" column="1" colspan="3">
+             <widget class="QComboBox" name="comboBox_Maptype">
+              <item>
+               <property name="text">
+                <string>OpenStreetMap</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Stamen Terrain</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Stamen Toner</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Map Options</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="1" colspan="3">
+             <widget class="QLabel" name="label_38">
+              <property name="text">
+               <string>(or filepath,  dictionarys have to exist)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLabel" name="label_47">
+              <property name="text">
+               <string>(Integer numbers)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Tooltips in Markers</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
              <widget class="QCheckBox" name="checkBox_jumpborder_mark">
               <property name="text">
                <string>Mark points who jump over</string>
@@ -1447,38 +1441,27 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="text_map_jumpborder_mark">
+            <item row="1" column="0" colspan="2">
+             <widget class="QCheckBox" name="checkBox_Marker">
               <property name="text">
-               <string>60</string>
+               <string>Markers</string>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QLabel" name="label_33">
-              <property name="text">
-               <string>[km]</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="2" colspan="2">
-             <widget class="QLabel" name="label_31">
-              <property name="text">
-               <string>Marker</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="2" colspan="2">
+            <item row="6" column="2" colspan="2">
              <widget class="QLabel" name="label_46">
               <property name="text">
                <string>(recomendet for large data)</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="2" colspan="2">
-             <widget class="QLabel" name="label_37">
+            <item row="4" column="3">
+             <widget class="QLabel" name="label_50">
               <property name="text">
-               <string>(recomendet for large data sets)</string>
+               <string>(exclude points from polyline)</string>
               </property>
              </widget>
             </item>
@@ -1489,10 +1472,27 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="3" column="3">
-             <widget class="QLabel" name="label_50">
+            <item row="2" column="2" colspan="2">
+             <widget class="QLabel" name="label_37">
               <property name="text">
-               <string>(exclude points from polyline)</string>
+               <string>(recomendet for large data sets)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" colspan="2">
+             <widget class="QLabel" name="label_43">
+              <property name="text">
+               <string>(follows sort)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QCheckBox" name="checkBox_Polyline">
+              <property name="text">
+               <string>Polyline between Markers</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -1500,23 +1500,17 @@ p, li { white-space: pre-wrap; }
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="1" column="2" colspan="2">
-             <widget class="QLabel" name="label_24">
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>(only for csv)</string>
+               <string>Fileformat</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="text_datasave_seperator">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
+            <item row="6" column="0" colspan="2">
+             <widget class="QCheckBox" name="checkBox_save_jumppoints_to_xlsx">
               <property name="text">
-               <string>,</string>
+               <string>save jumppoints in .xlsx file</string>
               </property>
              </widget>
             </item>
@@ -1524,26 +1518,6 @@ p, li { white-space: pre-wrap; }
              <widget class="QLabel" name="label_14">
               <property name="text">
                <string>Filename</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1" colspan="2">
-             <widget class="QLineEdit" name="text_datasave_filename">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>file</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Fileformat</string>
               </property>
              </widget>
             </item>
@@ -1559,13 +1533,6 @@ p, li { white-space: pre-wrap; }
                 <string>.xlsx</string>
                </property>
               </item>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>Seperator</string>
-              </property>
              </widget>
             </item>
             <item row="8" column="1" colspan="2">
@@ -1587,10 +1554,30 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="6" column="0" colspan="2">
-             <widget class="QCheckBox" name="checkBox_save_jumppoints_to_xlsx">
+            <item row="7" column="1">
+             <widget class="QLineEdit" name="save_text_jumpborder">
               <property name="text">
-               <string>save jumppoints in .xlsx file</string>
+               <string>60</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" colspan="2">
+             <widget class="QLabel" name="label_24">
+              <property name="text">
+               <string>(only for csv)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="text_datasave_seperator">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>,</string>
               </property>
              </widget>
             </item>
@@ -1606,6 +1593,26 @@ p, li { white-space: pre-wrap; }
                </size>
               </property>
              </spacer>
+            </item>
+            <item row="7" column="2">
+             <widget class="QLabel" name="label_52">
+              <property name="text">
+               <string>[km]</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="2">
+             <widget class="QLineEdit" name="text_datasave_filename">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>file</string>
+              </property>
+             </widget>
             </item>
             <item row="0" column="0" colspan="2">
              <widget class="QLabel" name="label_12">
@@ -1628,17 +1635,10 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLineEdit" name="save_text_jumpborder">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_13">
               <property name="text">
-               <string>60</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2">
-             <widget class="QLabel" name="label_52">
-              <property name="text">
-               <string>[km]</string>
+               <string>Separator</string>
               </property>
              </widget>
             </item>
@@ -1760,7 +1760,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>checkBox_jump</tabstop>
   <tabstop>comboBox_tooltip_1</tabstop>
   <tabstop>comboBox_tooltip_2</tabstop>
-  <tabstop>checkBox_Polyline</tabstop>
   <tabstop>text_Mapname</tabstop>
   <tabstop>text_datasave_filename</tabstop>
   <tabstop>comboBox_datasave_format</tabstop>
