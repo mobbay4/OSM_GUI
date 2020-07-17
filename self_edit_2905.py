@@ -1,6 +1,3 @@
-
-
-
 import pandas as pd
 import numpy as np
 #from openpyxl.workbook import Workbook
@@ -8,6 +5,8 @@ import folium
 from folium.plugins import MarkerCluster
 from PyQt5.QtWidgets import QMessageBox, QTableWidget,QTableWidgetItem, QProgressDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+
 
 
 
@@ -105,6 +104,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             raw_path = fr"{path}"
             self.DF = pd.read_csv(raw_path)
             self.textfilter=[]
+            #set working frame
+            self.DF.reset_index(drop=True, inplace=True)
+            self.df = self.DF
 
             self.QComboBox_Longetude_val.clear()       # delete all items from comboBox
             self.QComboBox_Latetude_val.clear()       # delete all items from comboBox
@@ -119,12 +121,20 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             self.comboBox_tooltip_1.clear()
             self.comboBox_tooltip_2.clear()
 
+            filename = ""
+
             #befüllen der latitude/longitude Comboboxen
-            for i in self.DF.axes[1]:
+            for i in self.df.axes[1]:
+                #Preselect timestap
                 if i == 'timestamp':
                     self.QComboBox_Timstamp.addItem('timestamp')
                     self.comboBox_tooltip_1.addItem("timestamp")
-            for i in self.DF.axes[1]:
+                #Preselect latetude longetude
+                if i == "GPS_longitude":
+                    self.QComboBox_Longetude_val.addItem(i)
+                if i == "GPS_latitude":
+                    self.QComboBox_Latetude_val.addItem(i)
+            for i in self.df.axes[1]:
                 self.QComboBox_Longetude_val.addItem(i)
                 self.QComboBox_Latetude_val.addItem(i)
                 self.comboBox_filter_par1.addItem(i)
@@ -136,17 +146,28 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 self.comboBox_filter_time1.addItem(i)
                 self.comboBox_filter_time2.addItem(i)
                 self.comboBox_tooltip_2.addItem(i)
+                if i == "objectid":
+                    #Preselects a filename
+                    filename = filename + str(self.df.loc[0,"objectid"]) + "__"
                 if i == 'timestamp':
                     self.DF = self.DF.sort_values(by=['timestamp'])
                 else:
                     self.QComboBox_Timstamp.addItem(i)
                     self.comboBox_tooltip_1.addItem(i)
-            #set working frame
-            self.DF.reset_index(drop=True, inplace=True)
-            self.df = self.DF
+                if i == "proc_date":
+                    #Preselects a Filename
+                    filename = filename + str(self.df.loc[0,"proc_date"]) + "__" + str(self.df.loc[len(self.df.index)-1,"proc_date"]) + "__"
+                if i != "GPS_latitude":
+                    self.QComboBox_Longetude_val.addItem(i)
+                if i != "GPS_longitude":
+                    self.QComboBox_Latetude_val.addItem(i)
+
             #check if no error ocured
             self.markerexistance = True
             self.dataloaded      = True
+            self.text_Mapname.setText(filename)
+            self.text_datasave_filename.setText("filtereddata"+"_"+filename)
+
         except (IOError,NameError,FileNotFoundError) as e:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
@@ -184,7 +205,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
     def mapping_bt(self):
 
-        # try:
+        try:
             #Mappingsetup
             tile  = self.comboBox_Maptype.currentText()
             map = folium.Map( tiles= tile,zoom_start = 20,control_scale=True)
@@ -288,18 +309,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 msg.setText("WARNING: No data selected")
                 msg.setWindowTitle("WARNING")
                 msg.exec_()
-        # except (IOError,NameError,TypeError,ValueError) as e:
-        #     msg = QMessageBox()
-        #     msg.setIcon(QMessageBox.Warning)
-        #     msg.setText(str(e))
-        #     msg.setWindowTitle("WARNING")
-        #     msg.exec_()
-        # except:
-        #     msg = QMessageBox()
-        #     msg.setIcon(QMessageBox.Warning)
-        #     msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
-        #     msg.setWindowTitle("WARNING")
-        #     msg.exec_()
+        except (IOError,NameError,TypeError,ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
 
     def filteroptions(self,activ):
         #Filter the data as said by the Filteroptions
@@ -308,9 +329,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
         #                  if False ->filteroptions get undone
 
         if activ: #Apply filter button
-                self.df = self.DF
+            self.df = self.DF
 
-                def filtering(operator, DataFr, argument,i_par):
+            def filtering(operator, DataFr, argument,i_par):
                     #translate Filteroptions into boolians
                     if operator=='<':
                         x=DataFr.loc[DataFr[i_par]<argument]
@@ -330,7 +351,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                     elif operator == '!=':
                         x=DataFr.loc[DataFr[i_par]!=argument]
                         return x
-            # try:
+            try:
                 #Auslesen der Datenfelder
                 i_par1 = self.comboBox_filter_par1.currentText() #Spaltenauswahl
                 i_par2 = self.comboBox_filter_par2.currentText()
@@ -477,35 +498,48 @@ from PyQt5 import QtCore, QtGui, QtWidgets
                 else:#if filtered data is not empty shich markers on
                     self.markerexistance = True
 
-            # except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
-            #     msg = QMessageBox()
-            #     msg.setIcon(QMessageBox.Warning)
-            #     msg.setText(str(e))
-            #     msg.setWindowTitle("WARNING")
-            #     msg.exec_()
-            # except:
-            #     msg = QMessageBox()
-            #     msg.setIcon(QMessageBox.Warning)
-            #     msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
-            #     msg.setWindowTitle("WARNING")
-            #     msg.exec_()
+            except (IOError,NameError,FileNotFoundError,TypeError,ValueError) as e:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText(str(e))
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+            except:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
         elif ~activ:#undo filter Button, resets Dataset
-                    self.df = self.DF
-                    self.textfilter=[]
+            self.df = self.DF
+            self.textfilter=[]
         self.tablefiller()
 
     def findjumps(self,jumpborder):
-        ilat = self.QComboBox_Latetude_val.currentText()
-        ilon = self.QComboBox_Longetude_val.currentText()
-        gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
+        try:
+            ilat = self.QComboBox_Latetude_val.currentText()
+            ilon = self.QComboBox_Longetude_val.currentText()
+            gps  = self.df.loc[:,[ilat,ilon]]#build working dataframe
 
-        dlat = np.diff(gps.loc[:,ilat])
-        dlon = np.diff(gps.loc[:,ilon])
+            dlat = np.diff(gps.loc[:,ilat])
+            dlon = np.diff(gps.loc[:,ilon])
 
-        #create distance vector and detect jumps
-        d = np.sqrt(dlat**2 + dlon**2)
-        distance = pd.Series(data=d)#build a distance frame
-        jumps = distance[distance>(jumpborder/11.3)] #km to ° maybe better convert faktor
-        jumppoints = gps.loc[jumps.index.values,["GPS_latitude","GPS_longitude"]]
-        return jumppoints
+            #create distance vector and detect jumps
+            d = np.sqrt(dlat**2 + dlon**2)
+            distance = pd.Series(data=d)#build a distance frame
+            jumps = distance[distance>(jumpborder/11.3)] #km to ° maybe better convert faktor
+            jumppoints = gps.loc[jumps.index.values,["GPS_latitude","GPS_longitude"]]
+            return jumppoints
+        except (IOError,NameError,TypeError,ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()

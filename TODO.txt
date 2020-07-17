@@ -18,8 +18,10 @@ Behandeln von Sprüngen in den Datensätzen
 
 [ERLEDIGT]-Autofiller für Dateinamen [id, firstdate, enddate]
 [ERLEDIGT]-autofiller lat lon
--keyboard shortcuts
 
+
+- keyboard shortcuts
+- How to Use updaten
 ## TODO:
 Code aufräumen:
  - überall ständig überprüfen ob df exisitiert
