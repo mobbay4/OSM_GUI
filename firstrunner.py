@@ -896,7 +896,7 @@ class Ui_lcd_display(object):
             msg.setWindowTitle("WARNING")
             msg.setText("Unknown Error, (No IOError, FileNotFoundError ")
             msg.exec_()
-        self.tablefiller()  # fills table
+        self.tablefiller()
 
     def tablefiller(self):
         # purpes: fills the TableWidget with current Data
@@ -1163,7 +1163,45 @@ class Ui_lcd_display(object):
             self.textfilter = []
         self.tablefiller()
 
+    def findjumps(self, jumpborder):
+        # purpes: Finds points wich jump over a special border of distance
+        # -------
+        #
+        # Input:    jumpborder ... float number sets the distance border in km to clacify jumppoints
+        # ------
+        #
+        # Output:   jumppoints... DataFrame wich contains jumppoints with corresponding index positions
+        # -----
+        try:
+            ilat = self.QComboBox_Latetude_val.currentText()
+            ilon = self.QComboBox_Longetude_val.currentText()
+            gps  = self.df.loc[:, [ilat, ilon]]  # build working dataframe
+
+            dlat = np.diff(gps.loc[:, ilat])
+            dlon = np.diff(gps.loc[:, ilon])
+
+            # create distance vector and detect jumps
+            d = np.sqrt(dlat**2 + dlon**2)
+            distance = pd.Series(data=d)  # build a distance frame
+            jumps = distance[distance > (jumpborder / 11.3)]  # km to ° maybe better convert faktor
+            jumppoints = gps.loc[jumps.index.values, ["GPS_latitude", "GPS_longitude"]]
+            return jumppoints
+        except (IOError, NameError, TypeError, ValueError) as e:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(str(e))
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
+            msg.setWindowTitle("WARNING")
+            msg.exec_()
+
     def savefiltered_bt(self):
+        # purpes: saves current Data to File. Sometimes creates a file with jumppoints too
+        # ------
         try:
             name = self.text_datasave_filename.text()
             self.df.reset_index(drop=True, inplace=True)
@@ -1197,8 +1235,6 @@ class Ui_lcd_display(object):
             msg.setText("Unknown Error, (No IOError, NameError, FileNotFoundError,TypeError or ValueError ")
             msg.setWindowTitle("WARNING")
             msg.exec_()
-
-
 
     def mapping_bt(self):
         # purpes: Generates .html file witch contains the map
@@ -1307,36 +1343,6 @@ class Ui_lcd_display(object):
                 msg.setText("WARNING: No data selected")
                 msg.setWindowTitle("WARNING")
                 msg.exec_()
-        except (IOError, NameError, TypeError, ValueError) as e:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText(str(e))
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-        except:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
-
-
-
-    def findjumps(self, jumpborder):
-        try:
-            ilat = self.QComboBox_Latetude_val.currentText()
-            ilon = self.QComboBox_Longetude_val.currentText()
-            gps  = self.df.loc[:, [ilat, ilon]]  # build working dataframe
-
-            dlat = np.diff(gps.loc[:, ilat])
-            dlon = np.diff(gps.loc[:, ilon])
-
-            # create distance vector and detect jumps
-            d = np.sqrt(dlat**2 + dlon**2)
-            distance = pd.Series(data=d)  # build a distance frame
-            jumps = distance[distance > (jumpborder / 11.3)]  # km to ° maybe better convert faktor
-            jumppoints = gps.loc[jumps.index.values, ["GPS_latitude", "GPS_longitude"]]
-            return jumppoints
         except (IOError, NameError, TypeError, ValueError) as e:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
@@ -1529,6 +1535,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     lcd_display = QtWidgets.QMainWindow()
+    lcd_display.setWindowIcon(QtGui.QIcon("Mapicon"))
     ui = Ui_lcd_display()
     ui.setupUi(lcd_display)
     lcd_display.show()

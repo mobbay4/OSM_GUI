@@ -20,30 +20,13 @@ Behandeln von Sprüngen in den Datensätzen
 [ERLEDIGT]-autofiller lat lon
 
 
-- keyboard shortcuts
-- How to Use updaten
+- How to Use-> updaten
 ## TODO:
-Code aufräumen:
- - überall ständig überprüfen ob df exisitiert
- - Datentypen: Überprüfen ob in die Textfelder die richtigen Datentypen eingegeben wurden
- - Warning Messages überprüfen
- - nochmal alles einmal durchdenken
 
-Markerdarstellung
- - für viele Datenpunkte mit überblick was welcher ist
- - Datentracks mit feature groups
- - zentral maximale Markeranzahl für mehr stabilität
- - >feature groups mit jeweils 2000 Markern
- - [ERLEDIGT]->Marker Clusters
- - [ERLEDIGT]->jeden zweiten/dritten/vierten marker nur plotten
 
-Automatische auswahl der lat lon daten ausdenken
 
-tabs im GUI design
 
-GPS sort vielleicht als filteroption einbauen, der schaut wie weit aufeinander folgende punkte voneinander weg sind und ob des vom durchschnitt abweicht?
 
-window icon
 
 Optionale Funktionen:
  - Circle Marker?
@@ -53,6 +36,19 @@ Optionale Funktionen:
  - Featuregroups mit mehreren Filtereinstellungen?
  - Kann man die Tabelle auch ohne For Schleife befüllen?-> Schneller=> alle Daten drin
  - Karte in PyQt5: Online Tutorial für Folium Karte in PyQt5 Widget implementieren [https://stackoverflow.com/questions/58590199/how-to-show-folium-map-inside-a-pyqt5-gui]
+ - keyboard shortcuts
+ - tabs im GUI design
+ - GUI Icon
+ - Automatische auswahl der lat lon daten ausdenken
+
+ Markerdarstellung
+  - für viele Datenpunkte mit überblick was welcher ist
+  - Datentracks mit feature groups
+  - zentral maximale Markeranzahl für mehr stabilität
+  - >feature groups mit jeweils 2000 Markern
+  - [ERLEDIGT]->Marker Clusters
+  - [ERLEDIGT]->jeden zweiten/dritten/vierten marker nur plotten
+
 Process Bar:
  - Oder Besser einen Colorbutton der sich färbt wenn prozess in arbeit
  - für Filter
