@@ -2,7 +2,7 @@
 This application ist to view the GPS-Track of vehicles and additional sensor data.
 The track can be split according to boundary conditions set on the additional sensor data.
 
-See the **Help-File XXX** how to use the application.
+See the **Help-File Dokumentation OpenStreetMap GUI Plotter** how to use the application.
 
 ## start application (when installed python)
 If you have already set up the environment for the application, simply double click the start_app.sh script (or run it with cmd prompt)
