@@ -2,3 +2,4 @@ Folium
 PyQt5
 Pandas
 numpy
+openpyxl

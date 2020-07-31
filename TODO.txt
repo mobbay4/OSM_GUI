@@ -20,7 +20,6 @@ Behandeln von Sprüngen in den Datensätzen
 [ERLEDIGT]-autofiller lat lon
 
 
-- How to Use-> updaten
 ## TODO:
 
 

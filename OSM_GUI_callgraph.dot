@@ -1,0 +1,61 @@
+digraph G {
+    graph [rankdir=TB, clusterrank="local"];
+    subgraph cluster_G {
+
+        graph [style="filled,rounded",fillcolor="#80808018", label=""];
+        OSM_GUI [label="OSM_GUI", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="0"];
+        subgraph cluster_OSM_GUI {
+
+            graph [style="filled,rounded",fillcolor="#80808018", label="OSM_GUI"];
+            OSM_GUI__Ui_lcd_display [label="Ui_lcd_display\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:10)", style="filled", fillcolor="#feccccb2", fontcolor="#000000", group="0"];
+        }
+        subgraph cluster_OSM_GUI__Ui_lcd_display {
+
+            graph [style="filled,rounded",fillcolor="#80808018", label="OSM_GUI.Ui_lcd_display"];
+            OSM_GUI__Ui_lcd_display__cleardata_bt [label="cleardata_bt\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:987)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__filteroptions [label="filteroptions\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1032)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__findjumps [label="findjumps\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1228)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__mapping_bt [label="mapping_bt\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1301)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__readfile_bt [label="readfile_bt\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:877)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__retranslateUi [label="retranslateUi\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1421)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__savefiltered_bt [label="savefiltered_bt\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1264)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__setupUi [label="setupUi\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:11)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__sort_bt [label="sort_bt\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1009)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+            OSM_GUI__Ui_lcd_display__tablefiller [label="tablefiller\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:963)", style="filled", fillcolor="#ff9999b2", fontcolor="#000000", group="0"];
+        }
+        subgraph cluster_OSM_GUI__Ui_lcd_display__filteroptions {
+
+            graph [style="filled,rounded",fillcolor="#80808018", label="OSM_GUI.Ui_lcd_display.filteroptions"];
+            OSM_GUI__Ui_lcd_display__filteroptions__filtering [label="filtering\n(C:\Users\FloSc\Desktop\Siemens\OSM_GUI\development\OSM_GUI.py:1042)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+        }
+    }
+        OSM_GUI -> OSM_GUI__Ui_lcd_display [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__setupUi [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__mapping_bt [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__readfile_bt [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__cleardata_bt [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__findjumps [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__sort_bt [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__tablefiller [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__filteroptions [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__savefiltered_bt [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display -> OSM_GUI__Ui_lcd_display__retranslateUi [style="dashed", color="#838b8b"];
+        OSM_GUI__Ui_lcd_display__filteroptions -> OSM_GUI__Ui_lcd_display__filteroptions__filtering [style="dashed", color="#838b8b"];
+        OSM_GUI -> OSM_GUI__Ui_lcd_display [style="solid", color="#000000"];
+        OSM_GUI -> OSM_GUI__Ui_lcd_display__setupUi [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__retranslateUi [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__mapping_bt [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__readfile_bt [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__cleardata_bt [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__sort_bt [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__filteroptions [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__setupUi -> OSM_GUI__Ui_lcd_display__savefiltered_bt [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__readfile_bt -> OSM_GUI__Ui_lcd_display__tablefiller [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__cleardata_bt -> OSM_GUI__Ui_lcd_display__tablefiller [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__sort_bt -> OSM_GUI__Ui_lcd_display__tablefiller [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__filteroptions -> OSM_GUI__Ui_lcd_display__filteroptions__filtering [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__filteroptions -> OSM_GUI__Ui_lcd_display__findjumps [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__filteroptions -> OSM_GUI__Ui_lcd_display__tablefiller [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__savefiltered_bt -> OSM_GUI__Ui_lcd_display__findjumps [style="solid", color="#000000"];
+        OSM_GUI__Ui_lcd_display__mapping_bt -> OSM_GUI__Ui_lcd_display__findjumps [style="solid", color="#000000"];
+    }

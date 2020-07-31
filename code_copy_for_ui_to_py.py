@@ -1,4 +1,5 @@
 
+
 import pandas as pd
 import numpy as np
 import folium
@@ -559,8 +560,3 @@ from PyQt5 import QtCore, QtGui, QtWidgets
             msg.setText("Unknown Error, (No IOError, NameError, TypeError or ValueError ")
             msg.setWindowTitle("WARNING")
             msg.exec_()
-
-
-
-
-lcd_display.setWindowIcon(QtGui.QIcon("Mapicon"))
