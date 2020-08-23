@@ -1,0 +1,6 @@
+ipykernel
+folium
+openpyxl
+pip
+Pandas
+pyqt
