@@ -1,0 +1,15 @@
+*.bak
+
+*~*.docx
+*~*.xlsx
+*~*.pptx
+
+/__pycache__
+/.vscode
+*.pyc
+
+# checkpoint of jupyter-notebooks
+*.ipynb_checkpoints/*
+
+# ignore the local temp-folder for every user
+/tmp

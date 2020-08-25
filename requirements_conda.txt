@@ -1,6 +1,4 @@
-ipykernel
+spyder
+scipy
+pandas
 folium
-openpyxl
-pip
-Pandas
-pyqt
